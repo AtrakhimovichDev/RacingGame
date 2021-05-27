@@ -18,7 +18,10 @@ class Game {
     private var obstructionsArray: [Obstruction] = []
     
     func startGame(mainView: UIView) {
-        gameUI.startAnimation(mainView: mainView)
+        gameUI.startAnimation(mainView: mainView) { _ in
+           // self.road.startAnimation()
+           // self.grass.startAnimation()
+        }
         road.startAnimation()
         grass.startAnimation()
     }

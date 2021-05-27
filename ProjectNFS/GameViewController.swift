@@ -75,11 +75,14 @@ class GameViewController: UIViewController {
     
     @objc func changeCarPosition(selector: UIPanGestureRecognizer) {
         switch selector.state {
+        case .began:
+            game.gameUI.showPanGestureControlView(selectorLocation: selector.location(in: mainView))
         case .changed:
             game.car.setTranslationPosition(translationPosition: selector.translation(in: mainView))
             game.car.rotateCar()
             game.car.moveCar()
         case .ended:
+            game.gameUI.hidePanGestureControlView()
             game.car.changeCarMoovingStatus()
             game.car.rotateCar()
         default:
@@ -91,6 +94,10 @@ class GameViewController: UIViewController {
         if let navigationController = navigationController {
             navigationController.setNavigationBarHidden(true, animated: animated)
         }
+    }
+    
+    private func addPanGestureControllView() {
+        
     }
     
 }

@@ -13,6 +13,7 @@ class GameInterface {
     private let twoImage = UIImage(named: "two_icon")
     private let threeImage = UIImage(named: "three_icon")
     private let readyStadyGoImageView = UIImageView()
+    private let panGestureControlView = UIView()
     private let scoreLabel = UILabel()
     var score = 0 {
         didSet {
@@ -24,15 +25,27 @@ class GameInterface {
     private var secondStepNumbersAnimation: (() -> ())?
     private var firstStepNumbersComplition: ((Bool) -> ())?
     private var secondStepNumbersComplition: ((Bool) -> ())?
+    private var lastStepNumbersComplition: ((Bool) -> ())?
     
-    func startAnimation(mainView: UIView) {
+    func startAnimation(mainView: UIView, lastComplition: @escaping (Bool) -> ()) {
         if let firstStepNumbersAnimation = self.firstStepNumbersAnimation,
            let firstStepNumbersComplition = self.firstStepNumbersComplition {
             UIView.animate(withDuration: 0.6, delay: 0, options: [], animations: firstStepNumbersAnimation, completion: firstStepNumbersComplition)
         }
+        lastStepNumbersComplition = lastComplition
     }
     
     func setGameUISettings(mainView: UIView) {
+        
+        panGestureControlView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        panGestureControlView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        panGestureControlView.layer.cornerRadius = 25
+        panGestureControlView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        panGestureControlView.layer.borderWidth = 2
+        panGestureControlView.alpha = 0.7
+        panGestureControlView.isHidden = true
+        mainView.addSubview(panGestureControlView)
+
         scoreLabel.frame = CGRect(x: mainView.frame.width / 2 - 50, y: 10, width: 100, height: 30)
         scoreLabel.textColor = .white
         mainView.addSubview(scoreLabel)
@@ -72,6 +85,10 @@ class GameInterface {
                     UIView.animate(withDuration: 0.6, delay: 0, options: [], animations: firstStepNumbersAnimation, completion: firstStepNumbersComplition)
                 }
             } else {
+                if let firstStepNumbersAnimation = self.firstStepNumbersAnimation,
+                   let lastStepNumbersComplition = self.lastStepNumbersComplition {
+                    UIView.animate(withDuration: 0.6, delay: 0, options: [], animations: firstStepNumbersAnimation, completion: lastStepNumbersComplition)
+                }
                 self.readyStadyGoImageView.removeFromSuperview()
             }
         }
@@ -88,5 +105,13 @@ class GameInterface {
         }
     }
     
+    func showPanGestureControlView(selectorLocation: CGPoint) {
+        panGestureControlView.frame.origin = CGPoint(x: selectorLocation.x - 25, y: selectorLocation.y - 25)
+        panGestureControlView.isHidden = false
+    }
+    
+    func hidePanGestureControlView() {
+        panGestureControlView.isHidden = true
+    }
     
 }

@@ -36,9 +36,9 @@ class Car {
     func rotateCar() {
         var rotateAngel: CGFloat = 0
         if carIsMooving {
-            if self.translationPosition.x < 0 {
+            if self.translationPosition.x < -25 {
                 rotateAngel = -self.rotationAngel
-            } else {
+            } else if self.translationPosition.x > 25 {
                 rotateAngel = self.rotationAngel
             }
         }
@@ -78,20 +78,20 @@ class Car {
     
     private func setMoovingCarAnimation(mainView: UIView) {
         moovingCarAnimation = {
-            if self.translationPosition.x < 0 {
+            if self.translationPosition.x < -25 {
                 if self.carView.frame.origin.x >= 0 {
                     self.carView.frame.origin.x = self.carView.frame.origin.x - self.carSpeed
                 }
-            } else {
+            } else if self.translationPosition.x > 25 {
                 if self.carView.frame.origin.x + 40 <= mainView.frame.width {
                     self.carView.frame.origin.x = self.carView.frame.origin.x + self.carSpeed
                 }
             }
-            if self.translationPosition.y > 0 {
+            if self.translationPosition.y > 25 {
                 if self.carView.frame.maxY < mainView.frame.height {
                     self.carView.frame.origin.y = self.carView.frame.origin.y + self.carSpeed
                 }
-            } else {
+            } else if self.translationPosition.y < -25 {
                 if self.carView.frame.origin.y > 0 {
                     self.carView.frame.origin.y = self.carView.frame.origin.y - self.carSpeed
                 }

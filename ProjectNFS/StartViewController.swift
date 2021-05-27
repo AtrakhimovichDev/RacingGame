@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         startButton.layer.shadowOpacity = 1
         startButton.layer.shadowRadius = 20
         startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchDown)
+        startButton.titleLabel?.font = UIFont.jerseySharp(of: 25)
         view.addSubview(startButton)
         
         scoreButton.frame = CGRect(x: 500, y: 370, width: 150, height: 50)
@@ -47,6 +48,7 @@ class ViewController: UIViewController {
         scoreButton.layer.shadowOffset = .zero
         scoreButton.layer.shadowOpacity = 1
         scoreButton.layer.shadowRadius = 20
+        scoreButton.titleLabel?.font = UIFont.jerseySharp(of: 25)
         scoreButton.addTarget(self, action: #selector(scoreButtonPressed), for: .touchDown)
         
         settingsButton.frame = CGRect(x: 500, y: 470, width: 150, height: 50)
@@ -60,6 +62,7 @@ class ViewController: UIViewController {
         settingsButton.layer.shadowOffset = .zero
         settingsButton.layer.shadowOpacity = 1
         settingsButton.layer.shadowRadius = 20
+        settingsButton.titleLabel?.font = UIFont.jerseySharp(of: 25)
         settingsButton.addTarget(self, action: #selector(settingsButtonPressed), for: .touchDown)
         
         view.addSubview(startButton)

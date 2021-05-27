@@ -16,6 +16,8 @@
 		B06AAD52265C3C0E00F329B1 /* GameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD51265C3C0E00F329B1 /* GameInterface.swift */; };
 		B06AAD54265D13E700F329B1 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD53265D13E700F329B1 /* GameOverViewController.swift */; };
 		B06AAD56265D240900F329B1 /* UIImage+HEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD55265D240900F329B1 /* UIImage+HEX.swift */; };
+		B07286A8265F6C380088AD7E /* JerseySharp.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B07286A7265F6C380088AD7E /* JerseySharp.ttf */; };
+		B07286AC265F70BF0088AD7E /* UIFont+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07286AB265F70BF0088AD7E /* UIFont+Custom.swift */; };
 		B0E9FF472641BF1100302450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E9FF462641BF1100302450 /* AppDelegate.swift */; };
 		B0E9FF492641BF1100302450 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E9FF482641BF1100302450 /* SceneDelegate.swift */; };
 		B0E9FF4B2641BF1100302450 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E9FF4A2641BF1100302450 /* StartViewController.swift */; };
@@ -37,6 +39,8 @@
 		B06AAD51265C3C0E00F329B1 /* GameInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInterface.swift; sourceTree = "<group>"; };
 		B06AAD53265D13E700F329B1 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		B06AAD55265D240900F329B1 /* UIImage+HEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+HEX.swift"; sourceTree = "<group>"; };
+		B07286A7265F6C380088AD7E /* JerseySharp.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JerseySharp.ttf; sourceTree = "<group>"; };
+		B07286AB265F70BF0088AD7E /* UIFont+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Custom.swift"; sourceTree = "<group>"; };
 		B0E9FF432641BF1100302450 /* ProjectNFS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectNFS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E9FF462641BF1100302450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0E9FF482641BF1100302450 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +79,23 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
+		B07286A4265F6BDB0088AD7E /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				B07286A7265F6C380088AD7E /* JerseySharp.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		B07286AA265F709A0088AD7E /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				B06AAD55265D240900F329B1 /* UIImage+HEX.swift */,
+				B07286AB265F70BF0088AD7E /* UIFont+Custom.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
 		B0E9FF3A2641BF1100302450 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +115,8 @@
 		B0E9FF452641BF1100302450 /* ProjectNFS */ = {
 			isa = PBXGroup;
 			children = (
+				B07286AA265F709A0088AD7E /* Extentions */,
+				B07286A4265F6BDB0088AD7E /* Font */,
 				B0554E9826568AAD00375707 /* Game */,
 				B0E9FF462641BF1100302450 /* AppDelegate.swift */,
 				B0E9FF482641BF1100302450 /* SceneDelegate.swift */,
@@ -106,7 +129,6 @@
 				B0E9FF4F2641BF1200302450 /* Assets.xcassets */,
 				B0E9FF512641BF1200302450 /* LaunchScreen.storyboard */,
 				B0E9FF542641BF1200302450 /* Info.plist */,
-				B06AAD55265D240900F329B1 /* UIImage+HEX.swift */,
 			);
 			path = ProjectNFS;
 			sourceTree = "<group>";
@@ -171,6 +193,7 @@
 				B0E9FF532641BF1200302450 /* LaunchScreen.storyboard in Resources */,
 				B0E9FF502641BF1200302450 /* Assets.xcassets in Resources */,
 				B0E9FF4E2641BF1100302450 /* Main.storyboard in Resources */,
+				B07286A8265F6C380088AD7E /* JerseySharp.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +213,7 @@
 				B0554EA22656DC2400375707 /* ObstructionType.swift in Sources */,
 				B0554E9E2656BE0900375707 /* Obstruction.swift in Sources */,
 				B0554EA02656D5DC00375707 /* Grass.swift in Sources */,
+				B07286AC265F70BF0088AD7E /* UIFont+Custom.swift in Sources */,
 				B0554E9C26569AA800375707 /* Road.swift in Sources */,
 				B06AAD50265C307C00F329B1 /* Game.swift in Sources */,
 				B0E9FF472641BF1100302450 /* AppDelegate.swift in Sources */,
