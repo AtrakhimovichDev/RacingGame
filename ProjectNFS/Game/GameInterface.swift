@@ -8,13 +8,17 @@
 import UIKit
 
 class GameInterface {
+    
+    private let readyStadyGoImageView = UIImageView()
+    private let scoreLabel = UILabel()
+    private let outsideCircleControlView = UIView()
+    private let insideCircleControlView = UIView()
+    let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private var endAnimation = false
     private let oneImage = UIImage(named: "one_icon")
     private let twoImage = UIImage(named: "two_icon")
     private let threeImage = UIImage(named: "three_icon")
-    private let readyStadyGoImageView = UIImageView()
-    private let panGestureControlView = UIView()
-    private let scoreLabel = UILabel()
+   
     var score = 0 {
         didSet {
             self.scoreLabel.text = "Score \(score)"
@@ -37,27 +41,50 @@ class GameInterface {
     
     func setGameUISettings(mainView: UIView) {
         
-        panGestureControlView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        panGestureControlView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        panGestureControlView.layer.cornerRadius = 25
-        panGestureControlView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        panGestureControlView.layer.borderWidth = 2
-        panGestureControlView.alpha = 0.7
-        panGestureControlView.isHidden = true
-        mainView.addSubview(panGestureControlView)
+        setStartAnimationSettings(mainView: mainView)
+        
+        outsideCircleControlView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        outsideCircleControlView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        outsideCircleControlView.layer.cornerRadius = 50
+        outsideCircleControlView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        outsideCircleControlView.layer.borderWidth = 2
+        outsideCircleControlView.alpha = 0.6
+        outsideCircleControlView.isHidden = true
+
+        insideCircleControlView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        insideCircleControlView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        insideCircleControlView.layer.cornerRadius = 25
+        insideCircleControlView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        insideCircleControlView.layer.borderWidth = 1
+        insideCircleControlView.alpha = 0.8
+        insideCircleControlView.isHidden = true
+        outsideCircleControlView.addSubview(insideCircleControlView)
+       
+        blurEffect.frame = mainView.bounds
+        blurEffect.alpha = 0
+        
+        mainView.addSubview(outsideCircleControlView)
+        //mainView.addSubview(insideCircleControlView)
 
         scoreLabel.frame = CGRect(x: mainView.frame.width / 2 - 50, y: 10, width: 100, height: 30)
         scoreLabel.textColor = .white
         mainView.addSubview(scoreLabel)
         
-        readyStadyGoImageView.frame = CGRect(x: mainView.frame.width, y: 350, width: 50, height: 70)
-        readyStadyGoImageView.image = UIImage(named: "three_icon")
-        mainView.addSubview(readyStadyGoImageView)
+       
 
         let constX = NSLayoutConstraint(item: scoreLabel, attribute: .top, relatedBy: .equal, toItem: mainView, attribute: .top, multiplier: 1, constant: 300)
         mainView.addConstraint(constX)
         
         setAnimationRules(mainView: mainView)
+        
+        mainView.addSubview(blurEffect)
+    }
+    
+    func setStartAnimationSettings(mainView: UIView) {
+        endAnimation = false
+        readyStadyGoImageView.frame = CGRect(x: mainView.frame.width, y: 350, width: 50, height: 70)
+        readyStadyGoImageView.image = UIImage(named: "three_icon")
+        mainView.addSubview(readyStadyGoImageView)
     }
     
     private func setAnimationRules(mainView: UIView) {
@@ -106,12 +133,78 @@ class GameInterface {
     }
     
     func showPanGestureControlView(selectorLocation: CGPoint) {
-        panGestureControlView.frame.origin = CGPoint(x: selectorLocation.x - 25, y: selectorLocation.y - 25)
-        panGestureControlView.isHidden = false
+        outsideCircleControlView.center = selectorLocation
+        insideCircleControlView.center = CGPoint(x: outsideCircleControlView.frame.width / 2, y: outsideCircleControlView.frame.height / 2)
+        insideCircleControlView.isHidden = false
+        outsideCircleControlView.isHidden = false
     }
     
     func hidePanGestureControlView() {
-        panGestureControlView.isHidden = true
+        insideCircleControlView.isHidden = true
+        outsideCircleControlView.isHidden = true
+    }
+    
+    func moveInsideControlCircle(translation: CGPoint) {
+        let newPositionControlCircle = getControlCircleNewPosition(translation: translation)
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear], animations: newPositionControlCircle)
+    }
+
+    private func getControlCircleNewPosition(translation: CGPoint) -> () -> () {
+        var newPosition: () -> ()
+        let diagonalPosition = outsideCircleControlView.frame.width / 2 - CGFloat(sqrt(25 * 25 / 2))
+        if translation.x < -25 {
+            if translation.y < -25 {
+                newPosition = {
+                    self.insideCircleControlView.center.x = diagonalPosition
+                    self.insideCircleControlView.center.y = diagonalPosition
+                }
+            } else if translation.y > 25 {
+                newPosition = {
+                    self.insideCircleControlView.center.x = diagonalPosition
+                    self.insideCircleControlView.center.y = self.outsideCircleControlView.frame.height - diagonalPosition
+                }
+            } else {
+                newPosition = {
+                    self.insideCircleControlView.center.x = 25
+                    self.insideCircleControlView.center.y = self.outsideCircleControlView.frame.height / 2
+                }
+            }
+        } else if translation.x > 25 {
+            if translation.y < -25 {
+                newPosition = {
+                    self.insideCircleControlView.center.x = self.outsideCircleControlView.frame.width - diagonalPosition
+                    self.insideCircleControlView.center.y = diagonalPosition
+                }
+            } else if translation.y > 25 {
+                newPosition = {
+                    self.insideCircleControlView.center.x = self.outsideCircleControlView.frame.width - diagonalPosition
+                    self.insideCircleControlView.center.y = self.outsideCircleControlView.frame.height - diagonalPosition
+                }
+            } else {
+                newPosition = {
+                    self.insideCircleControlView.center.x = self.outsideCircleControlView.frame.width - 25
+                    self.insideCircleControlView.center.y = self.outsideCircleControlView.frame.height / 2
+                }
+            }
+        } else {
+            if translation.y < -25 {
+                newPosition = {
+                    self.insideCircleControlView.center.x = self.outsideCircleControlView.frame.width / 2
+                    self.insideCircleControlView.center.y = 25
+                }
+            } else if translation.y > 25 {
+                newPosition = {
+                    self.insideCircleControlView.center.x = self.outsideCircleControlView.frame.width / 2
+                    self.insideCircleControlView.center.y = self.outsideCircleControlView.frame.height - 25
+                }
+            } else {
+                newPosition = {
+                    self.insideCircleControlView.center.x = self.outsideCircleControlView.frame.width / 2
+                    self.insideCircleControlView.center = CGPoint(x: self.outsideCircleControlView.frame.width / 2, y: self.outsideCircleControlView.frame.height / 2)
+                }
+            }
+        }
+        return newPosition
     }
     
 }

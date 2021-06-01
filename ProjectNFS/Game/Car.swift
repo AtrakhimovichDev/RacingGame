@@ -11,7 +11,7 @@ class Car {
     let carView = UIView()
     let carImageView = UIImageView()
     
-    private let carSpeed: CGFloat = 5
+    private let carSpeed: CGFloat = 6
     private let carRotateSpeed: TimeInterval = 0.2
     private let rotationAngel: CGFloat = 10 * .pi / 180
     private let carAnimationDuration: TimeInterval = 0.05
@@ -21,6 +21,9 @@ class Car {
     private var moovingCarAnimation: (() -> ())?
     private var moovingCarCompletion: ((Bool) -> ())?
     private var translationPosition: CGPoint = .zero
+    private var carHeight: CGFloat = 80
+    private var carWidth: CGFloat = 40
+    private var controlAllowance: CGFloat = 25
     private var carIsMooving = false
     
     func moveCar() {
@@ -36,9 +39,9 @@ class Car {
     func rotateCar() {
         var rotateAngel: CGFloat = 0
         if carIsMooving {
-            if self.translationPosition.x < -25 {
+            if self.translationPosition.x < -self.controlAllowance {
                 rotateAngel = -self.rotationAngel
-            } else if self.translationPosition.x > 25 {
+            } else if self.translationPosition.x > self.controlAllowance {
                 rotateAngel = self.rotationAngel
             }
         }
@@ -51,55 +54,53 @@ class Car {
         self.translationPosition = translationPosition
     }
     
-    func setCarSettings(mainView: UIView) {
-        setCarImageViewSettings(mainView: mainView)
-        setAnimationRules(mainView: mainView)
+    func setCarSettings(mainViewSize: CGSize) {
+        setCarImageViewSettings(mainViewSize: mainViewSize)
+        setAnimationRules(mainViewSize: mainViewSize)
     }
     
     func changeCarMoovingStatus() {
         carIsMooving = !carIsMooving
     }
     
-    private func setCarImageViewSettings(mainView: UIView) {
-        carView.frame.origin = CGPoint(x: mainView.frame.width / 2 - 30, y: mainView.bounds.height - 150 - 120)
-        carView.frame.size = CGSize(width: 40, height: 80)
-        
+    private func setCarImageViewSettings(mainViewSize: CGSize) {
+        carView.frame.origin = CGPoint(x: mainViewSize.width / 2 - carWidth / 2, y: mainViewSize.height - carHeight - 100)
+        carView.frame.size = CGSize(width: carWidth, height: carHeight)
         carImageView.image = UIImage(named: "car_icon")
         carImageView.frame = carView.bounds
-        
+
         carView.addSubview(carImageView)
-        mainView.addSubview(carView)
     }
     
-    private func setAnimationRules(mainView: UIView) {
-        setMoovingCarAnimation(mainView: mainView)
-        setMoovingCarCompletion(mainView: mainView)
+    private func setAnimationRules(mainViewSize: CGSize) {
+        setMoovingCarAnimation(mainViewSize: mainViewSize)
+        setMoovingCarCompletion()
     }
     
-    private func setMoovingCarAnimation(mainView: UIView) {
+    private func setMoovingCarAnimation(mainViewSize: CGSize) {
         moovingCarAnimation = {
-            if self.translationPosition.x < -25 {
+            if self.translationPosition.x < -self.controlAllowance {
                 if self.carView.frame.origin.x >= 0 {
-                    self.carView.frame.origin.x = self.carView.frame.origin.x - self.carSpeed
+                    self.carView.frame.origin.x -= self.carSpeed
                 }
-            } else if self.translationPosition.x > 25 {
-                if self.carView.frame.origin.x + 40 <= mainView.frame.width {
-                    self.carView.frame.origin.x = self.carView.frame.origin.x + self.carSpeed
+            } else if self.translationPosition.x > self.controlAllowance {
+                if self.carView.frame.origin.x + self.carWidth <= mainViewSize.width {
+                    self.carView.frame.origin.x += self.carSpeed
                 }
             }
-            if self.translationPosition.y > 25 {
-                if self.carView.frame.maxY < mainView.frame.height {
-                    self.carView.frame.origin.y = self.carView.frame.origin.y + self.carSpeed
+            if self.translationPosition.y > self.controlAllowance {
+                if self.carView.frame.maxY < mainViewSize.height {
+                    self.carView.frame.origin.y += self.carSpeed
                 }
-            } else if self.translationPosition.y < -25 {
+            } else if self.translationPosition.y < -self.controlAllowance {
                 if self.carView.frame.origin.y > 0 {
-                    self.carView.frame.origin.y = self.carView.frame.origin.y - self.carSpeed
+                    self.carView.frame.origin.y -= self.carSpeed
                 }
             }
         }
     }
     
-    private func setMoovingCarCompletion(mainView: UIView) {
+    private func setMoovingCarCompletion() {
         moovingCarCompletion = {_ in
             if self.carIsMooving {
                 if let moovingCarAnimation = self.moovingCarAnimation,

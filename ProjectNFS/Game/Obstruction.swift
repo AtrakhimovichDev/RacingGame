@@ -8,18 +8,19 @@
 import UIKit
 
 class Obstruction {
-    //var obstructionType: ObstructionType?
-    //duration = 30 / Double(self.roadView.frame.height)
-    
+
     let obstructionImageView = UIImageView()
-        
-    private var obstructionAnimationDuration: TimeInterval = 0.06
+           
     private let obstructionAnimationDelay: TimeInterval = 0
     private let obstructionAnimationOptions: UIView.AnimationOptions = [.curveLinear]
-   
+    private var obstructionAnimationDuration: TimeInterval = 0.06
+
     private var moovingObstructionAnimation: (() -> ())?
     private var moovingObstructionCompletion: ((Bool) -> ())?
+    private var obstractionHeight: CGFloat = 80
+    private var obstractionWidth:CGFloat = 40
     var deleteObstraction = false
+    var stopAnimation = false
     
     func startAnimation() {
         if let moovingObstructionAnimation = self.moovingObstructionAnimation,
@@ -28,42 +29,46 @@ class Obstruction {
         }
     }
     
-    func setObstractionSettings(mainView: UIView, roadView: UIView) {
-        //obstructionAnimationDuration = TimeInterval(20 / roadView.frame.height)
-        setObstractionImageViewsSettings(mainView: mainView, roadView: roadView)
-        setAnimationRules(mainView: mainView)
+    func setObstractionSettings(mainViewHeight: CGFloat, roadViewFrame: CGRect) {
+        setObstractionImageViewsSettings(mainViewHeight: mainViewHeight, roadViewFrame: roadViewFrame)
+        setAnimationRules(mainViewHeight: mainViewHeight)
     }
     
-    private func setObstractionImageViewsSettings(mainView: UIView, roadView: UIView) {
-        obstructionImageView.frame = CGRect(x: getRandomObstractionSpot(roadView: roadView), y: -30, width: 40, height: 80)
+    private func setObstractionImageViewsSettings(mainViewHeight: CGFloat, roadViewFrame: CGRect) {
+        let xRandomPosition = getRandomObstractionSpot(roadViewFrame: roadViewFrame)
+        let obstractionPoint = CGPoint(x: xRandomPosition, y: -obstractionHeight)
+        let obstractionSize = CGSize(width: obstractionWidth, height: obstractionHeight)
+        obstructionImageView.frame = CGRect(origin: obstractionPoint, size: obstractionSize)
         if Bool.random() {
             obstructionImageView.image = UIImage(named: "car2_icon")
         } else {
             obstructionImageView.image = UIImage(named: "car3_icon")
         }
-        mainView.addSubview(obstructionImageView)
     }
     
-    private func getRandomObstractionSpot(roadView: UIView) -> CGFloat {
-        let minX = Int(roadView.frame.minX)
-        let maxX = Int(roadView.frame.maxX) - 30
+    private func getRandomObstractionSpot(roadViewFrame: CGRect) -> CGFloat {
+        let minX = Int(roadViewFrame.minX)
+        let maxX = Int(roadViewFrame.maxX) - 30
         return CGFloat(Int.random(in: minX...maxX))
     }
     
-    private func setAnimationRules(mainView: UIView) {
+    private func setAnimationRules(mainViewHeight: CGFloat) {
         setMoovingObstractionAnimation()
-        setMoovingObstractionCompletion(mainView: mainView)
+        setMoovingObstractionCompletion(mainViewHeight: mainViewHeight)
     }
     
     private func setMoovingObstractionAnimation() {
         moovingObstructionAnimation = {
-            self.obstructionImageView.frame.origin.y = self.obstructionImageView.frame.origin.y + 10
+            self.obstructionImageView.frame.origin.y += 10
         }
     }
     
-    private func setMoovingObstractionCompletion(mainView: UIView) {
+    private func setMoovingObstractionCompletion(mainViewHeight: CGFloat) {
         moovingObstructionCompletion = {(_) in
-            if self.obstructionImageView.frame.origin.y <= mainView.frame.height {
+            if self.stopAnimation {
+                return
+            }
+            if self.obstructionImageView.frame.origin.y <= mainViewHeight {
                 self.startAnimation()
             } else {
                 self.deleteObstraction = true

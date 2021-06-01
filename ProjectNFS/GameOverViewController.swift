@@ -9,13 +9,20 @@ import UIKit
 
 class GameOverViewController: UIViewController {
 
+    var buttonResetPressed: (() -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func restartButtonPressed(_ sender: Any) {
+        guard let buttonResetPressed = buttonResetPressed else { return }
+        buttonResetPressed()
+        dismiss(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

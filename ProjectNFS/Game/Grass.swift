@@ -13,11 +13,12 @@ class Grass {
     private let rightGrassImageViewFirst = UIImageView()
     private let rightGrassImageViewSecond = UIImageView()
     
-    private let grassAnimationDuration: TimeInterval = 3
+    private let grassAnimationDuration: TimeInterval = 0.01
     private let grassAnimationDelay: TimeInterval = 0
     private let grassAnimationOptions: UIView.AnimationOptions = [.curveLinear]
     private var moovingGrassAnimation: (() -> ())?
     private var moovingGrassCompletion: ((Bool) -> ())?
+    var stopAnimation = false
     
     func startAnimation() {
         if let moovingGrassAnimation = self.moovingGrassAnimation,
@@ -55,26 +56,28 @@ class Grass {
     
     private func setMoovingGrassAnimation(grassViewLeft: UIView, grassViewRight: UIView) {
         moovingGrassAnimation = {
-            self.leftGrassImageViewFirst.frame.origin.y = grassViewLeft.frame.height
-            self.leftGrassImageViewSecond.frame.origin.y = 0
+            self.leftGrassImageViewFirst.frame.origin.y += 10
+            self.leftGrassImageViewSecond.frame.origin.y += 10
             
-            self.rightGrassImageViewFirst.frame.origin.y = grassViewRight.frame.height
-            self.rightGrassImageViewSecond.frame.origin.y = 0
+            self.rightGrassImageViewFirst.frame.origin.y += 10
+            self.rightGrassImageViewSecond.frame.origin.y += 10
         }
     }
     
     private func setMoovingGrassCompletion(grassViewLeft: UIView, grassViewRight: UIView) {
         moovingGrassCompletion = {_ in
-            self.leftGrassImageViewFirst.frame.origin.y = 0
-            self.leftGrassImageViewSecond.frame.origin.y = -grassViewLeft.frame.height
-            
-            self.rightGrassImageViewFirst.frame.origin.y = 0
-            self.rightGrassImageViewSecond.frame.origin.y = -grassViewRight.frame.height
-            
-            if let moovingGrassAnimation = self.moovingGrassAnimation,
-               let moovingGrassCompletion = self.moovingGrassCompletion {
-                UIView.animate(withDuration: self.grassAnimationDuration, delay: self.grassAnimationDelay, options: self.grassAnimationOptions, animations: moovingGrassAnimation, completion: moovingGrassCompletion)
+            if self.stopAnimation {
+                return
             }
+            if self.leftGrassImageViewFirst.frame.minY >= grassViewLeft.frame.height {
+                self.leftGrassImageViewFirst.frame.origin.y = 0
+                self.leftGrassImageViewSecond.frame.origin.y = -grassViewLeft.frame.height
+                
+                self.rightGrassImageViewFirst.frame.origin.y = 0
+                self.rightGrassImageViewSecond.frame.origin.y = -grassViewRight.frame.height
+            }
+            
+            self.startAnimation()
         }
     }
 }

@@ -9,60 +9,108 @@ import UIKit
 
 class Game {
     let gameUI: GameInterface = GameInterface()
-    let road: Road = Road()
-    let grass: Grass = Grass()
-    let car: Car = Car()
+    var car: Car = Car()
    
-    //private var gameIsStarting = false
-    private var gameOver = false
+    private var gameStatus: GameStatus = .start
     private var obstructionsArray: [Obstruction] = []
+    private var backgroundsArray: [GameBackground] = []
+    
     
     func startGame(mainView: UIView) {
         gameUI.startAnimation(mainView: mainView) { _ in
-           // self.road.startAnimation()
-           // self.grass.startAnimation()
+            self.gameStatus = .play
         }
-        road.startAnimation()
-        grass.startAnimation()
+        for gameBackground in backgroundsArray {
+            gameBackground.startAnimation()
+        }
     }
     
-    func setGamingSettings(mainView: UIView, roadView: UIView, grassViewLeft: UIView, grassViewRight: UIView) {
-        road.setRoadSettings(roadView: roadView)
-        grass.setGrassSettings(grassViewLeft: grassViewLeft, grassViewRight: grassViewRight)
-        car.setCarSettings(mainView: mainView)
+    func pauseGame(mainView: UIView) {
+        if gameStatus != .pause {
+            gameStatus = .pause
+            //mainView.bringSubviewToFront(gameUI.blurEffect)
+            UIView.animate(withDuration: 1) {
+                self.gameUI.blurEffect.alpha = 1
+            }
+            for background in backgroundsArray {
+                background.stopAnimation = true
+            }
+            for obstruction in obstructionsArray {
+                obstruction.stopAnimation = true
+            }
+        } else {
+            gameStatus = .play
+            UIView.animate(withDuration: 1) {
+                self.gameUI.blurEffect.alpha = 0
+            }
+            for background in backgroundsArray {
+                background.stopAnimation = false
+                background.startAnimation()
+            }
+            for obstruction in obstructionsArray {
+                obstruction.stopAnimation = false
+                obstruction.startAnimation()
+            }
+        }
+    }
+    
+    func setGamingSettings(mainView: UIView) {
+       
         gameUI.setGameUISettings(mainView: mainView)
     }
     
-    func createObstruction(mainView: UIView, roadView: UIView) {
+    func createBackground(backgroundType: GameBackgroundType, viewBounds: CGRect) -> GameBackground {
+        let background = GameBackground(gameBackgroundType: backgroundType)
+        background.setBackgroundSettings(backgroundViewBounds: viewBounds)
+        backgroundsArray.append(background)
+        return background
+    }
+    
+    func createObstruction(mainViewHeight: CGFloat, roadViewFrame: CGRect) -> Obstruction {
         let obstraction = Obstruction()
-        obstraction.setObstractionSettings(mainView: mainView, roadView: roadView)
-        obstraction.startAnimation()
+        obstraction.setObstractionSettings(mainViewHeight: mainViewHeight, roadViewFrame: roadViewFrame)
         obstructionsArray.append(obstraction)
+        return obstraction
     }
     
-    func deleteObstractions() {
-        obstructionsArray = obstructionsArray.filter{ !$0.deleteObstraction }
+    func createCar(mainViewSize: CGSize) -> Car {
+        let car = Car()
+        car.setCarSettings(mainViewSize: mainViewSize)
+        self.car = car
+        return car
     }
     
-    func checkCrush(mainView: UIView) {
-        checkAwayFromRoadCrush(mainView: mainView)
+    func deleteObstractions(deleteAll: Bool) {
+        if deleteAll {
+            obstructionsArray = []
+        } else {
+            obstructionsArray = obstructionsArray.filter{ !$0.deleteObstraction }
+        }
+    }
+    
+    func checkCrush(mainViewMaxX: CGFloat) {
+        checkAwayFromRoadCrush(mainViewMaxX: mainViewMaxX)
         checkObstructionCrash()
     }
     
-    func getGameOverStatus() -> Bool {
-        return gameOver
+    func setGameStatus(newStatus: GameStatus) {
+        gameStatus = newStatus
     }
     
-    private func checkAwayFromRoadCrush(mainView: UIView) {
-        if car.carView.frame.minX <= 0 || car.carView.frame.maxX >= mainView.frame.maxX {
-            gameOver = true
+    func getGameStatus() -> GameStatus {
+        return gameStatus
+    }
+    
+    private func checkAwayFromRoadCrush(mainViewMaxX: CGFloat) {
+        if car.carView.frame.minX <= 0 || car.carView.frame.maxX >= mainViewMaxX {
+            gameStatus = .gameOver
         }
     }
     
     private func checkObstructionCrash() {
         for obstruct in obstructionsArray {
             if car.carView.frame.intersects(obstruct.obstructionImageView.frame) {
-                gameOver = true
+                gameStatus = .gameOver
                 break
             }
         }
