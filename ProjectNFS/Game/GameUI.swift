@@ -58,9 +58,7 @@ class GameUI {
 
         setAnimationRules(mainView: mainView)
     }
-    
-
-    
+        
     func setStartAnimationSettings(mainView: UIView) {
         endAnimation = false
         readyStadyGoImageView.frame = CGRect(x: mainView.frame.width, y: 350, width: 50, height: 70)

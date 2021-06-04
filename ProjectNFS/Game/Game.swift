@@ -8,7 +8,7 @@
 import UIKit
 
 class Game {
-    let gameUI: GameUI = GameUI()
+    //let gameUI: GameUI = GameUI()
     var car: CarUI = CarUI()
    
     private var gameStatus: GameStatus = .start
@@ -17,17 +17,21 @@ class Game {
     private var hpAmount = 3
     private var armorAmount = 2
     
-    func startGame(mainView: UIView) {
-        gameUI.startAnimation(mainView: mainView) { _ in
-            self.gameStatus = .play
-        }
+    func startBackgroundAnimation(mainView: UIView) {
         for gameBackground in backgroundsArray {
             gameBackground.stopAnimation = false
             gameBackground.startAnimation()
         }
     }
+   
     
-    func pauseGame(mainView: UIView) {
+    func stopBackgroundAnimation() {
+        for background in backgroundsArray {
+            background.stopAnimation = true
+        }
+    }
+    
+    func pauseGame() {
         if gameStatus != .pause {
             gameStatus = .pause
             for background in backgroundsArray {
@@ -63,10 +67,6 @@ class Game {
     
     func getGameStatus() -> GameStatus {
         return gameStatus
-    }
-    
-    func setGamingSettings(mainView: UIView) {
-        gameUI.setGameUISettings(mainView: mainView)
     }
     
     func getArmor() -> Int {
@@ -106,12 +106,6 @@ class Game {
             obstructionsArray = []
         } else {
             obstructionsArray = obstructionsArray.filter{ !$0.deleteObstraction }
-        }
-    }
-    
-    func stopBackgroundAnimation() {
-        for background in backgroundsArray {
-            background.stopAnimation = true
         }
     }
     
