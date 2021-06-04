@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Car {
+class CarUI {
     let carView = UIView()
     let carImageView = UIImageView()
     
@@ -25,6 +25,12 @@ class Car {
     private var carWidth: CGFloat = 40
     private var controlAllowance: CGFloat = 25
     private var carIsMooving = false
+    
+    var afterCrash = false
+    
+    func setStartPosition(mainViewSize: CGSize) {
+        carView.frame.origin = CGPoint(x: mainViewSize.width / 2 - carWidth / 2, y: mainViewSize.height - carHeight - 100)
+    }
     
     func moveCar() {
         if !carIsMooving {
@@ -110,6 +116,7 @@ class Car {
             }
         }
     }
+    
     
     
 }

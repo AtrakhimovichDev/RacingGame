@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		B02DCDB42664C72F00EEEB74 /* GameBackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDB32664C72F00EEEB74 /* GameBackgroundType.swift */; };
-		B02DCDB62664C7A500EEEB74 /* GameBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDB52664C7A500EEEB74 /* GameBackground.swift */; };
-		B0554E9A2656981100375707 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E992656981100375707 /* Car.swift */; };
-		B0554E9E2656BE0900375707 /* Obstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E9D2656BE0900375707 /* Obstruction.swift */; };
+		B02DCDB62664C7A500EEEB74 /* GameBackgroundUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDB52664C7A500EEEB74 /* GameBackgroundUI.swift */; };
+		B02DCDFC2668F71600EEEB74 /* GameViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDFB2668F71600EEEB74 /* GameViewController+Alert.swift */; };
+		B02DCDFE266A37D600EEEB74 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDFD266A37D600EEEB74 /* Images.swift */; };
+		B02DCE00266A383000EEEB74 /* UIImage+enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDFF266A383000EEEB74 /* UIImage+enum.swift */; };
+		B0554E9A2656981100375707 /* CarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E992656981100375707 /* CarUI.swift */; };
+		B0554E9E2656BE0900375707 /* ObstructionUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E9D2656BE0900375707 /* ObstructionUI.swift */; };
 		B0554EA22656DC2400375707 /* ObstructionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554EA12656DC2400375707 /* ObstructionType.swift */; };
 		B06AAD50265C307C00F329B1 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD4F265C307C00F329B1 /* Game.swift */; };
-		B06AAD52265C3C0E00F329B1 /* GameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD51265C3C0E00F329B1 /* GameInterface.swift */; };
+		B06AAD52265C3C0E00F329B1 /* GameUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD51265C3C0E00F329B1 /* GameUI.swift */; };
 		B06AAD54265D13E700F329B1 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD53265D13E700F329B1 /* GameOverViewController.swift */; };
 		B06AAD56265D240900F329B1 /* UIImage+HEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD55265D240900F329B1 /* UIImage+HEX.swift */; };
 		B07286A8265F6C380088AD7E /* JerseySharp.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B07286A7265F6C380088AD7E /* JerseySharp.ttf */; };
@@ -32,12 +35,15 @@
 
 /* Begin PBXFileReference section */
 		B02DCDB32664C72F00EEEB74 /* GameBackgroundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBackgroundType.swift; sourceTree = "<group>"; };
-		B02DCDB52664C7A500EEEB74 /* GameBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBackground.swift; sourceTree = "<group>"; };
-		B0554E992656981100375707 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
-		B0554E9D2656BE0900375707 /* Obstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obstruction.swift; sourceTree = "<group>"; };
+		B02DCDB52664C7A500EEEB74 /* GameBackgroundUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBackgroundUI.swift; sourceTree = "<group>"; };
+		B02DCDFB2668F71600EEEB74 /* GameViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+Alert.swift"; sourceTree = "<group>"; };
+		B02DCDFD266A37D600EEEB74 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		B02DCDFF266A383000EEEB74 /* UIImage+enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+enum.swift"; sourceTree = "<group>"; };
+		B0554E992656981100375707 /* CarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarUI.swift; sourceTree = "<group>"; };
+		B0554E9D2656BE0900375707 /* ObstructionUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstructionUI.swift; sourceTree = "<group>"; };
 		B0554EA12656DC2400375707 /* ObstructionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstructionType.swift; sourceTree = "<group>"; };
 		B06AAD4F265C307C00F329B1 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		B06AAD51265C3C0E00F329B1 /* GameInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInterface.swift; sourceTree = "<group>"; };
+		B06AAD51265C3C0E00F329B1 /* GameUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUI.swift; sourceTree = "<group>"; };
 		B06AAD53265D13E700F329B1 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		B06AAD55265D240900F329B1 /* UIImage+HEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+HEX.swift"; sourceTree = "<group>"; };
 		B07286A7265F6C380088AD7E /* JerseySharp.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JerseySharp.ttf; sourceTree = "<group>"; };
@@ -67,14 +73,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B02DCE02266A492900EEEB74 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0E9FF4A2641BF1100302450 /* StartViewController.swift */,
+				B0E9FF5A2641BF8200302450 /* GameViewController.swift */,
+				B06AAD53265D13E700F329B1 /* GameOverViewController.swift */,
+				B0E9FF5E2641BF9E00302450 /* SettingsViewController.swift */,
+				B0E9FF5C2641BF9100302450 /* ScoreViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		B0554E9826568AAD00375707 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				B0554E992656981100375707 /* Car.swift */,
-				B0554E9D2656BE0900375707 /* Obstruction.swift */,
 				B06AAD4F265C307C00F329B1 /* Game.swift */,
-				B06AAD51265C3C0E00F329B1 /* GameInterface.swift */,
-				B02DCDB52664C7A500EEEB74 /* GameBackground.swift */,
+				B06AAD51265C3C0E00F329B1 /* GameUI.swift */,
+				B0554E992656981100375707 /* CarUI.swift */,
+				B0554E9D2656BE0900375707 /* ObstructionUI.swift */,
+				B02DCDB52664C7A500EEEB74 /* GameBackgroundUI.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -92,6 +110,8 @@
 			children = (
 				B06AAD55265D240900F329B1 /* UIImage+HEX.swift */,
 				B07286AB265F70BF0088AD7E /* UIFont+Custom.swift */,
+				B02DCDFB2668F71600EEEB74 /* GameViewController+Alert.swift */,
+				B02DCDFF266A383000EEEB74 /* UIImage+enum.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -102,6 +122,7 @@
 				B0554EA12656DC2400375707 /* ObstructionType.swift */,
 				B07286B02660C3690088AD7E /* GameStatus.swift */,
 				B02DCDB32664C72F00EEEB74 /* GameBackgroundType.swift */,
+				B02DCDFD266A37D600EEEB74 /* Images.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -125,17 +146,13 @@
 		B0E9FF452641BF1100302450 /* ProjectNFS */ = {
 			isa = PBXGroup;
 			children = (
-				B07286AF2660C33E0088AD7E /* Enums */,
-				B07286AA265F709A0088AD7E /* Extentions */,
-				B07286A4265F6BDB0088AD7E /* Font */,
+				B02DCE02266A492900EEEB74 /* Controllers */,
 				B0554E9826568AAD00375707 /* Game */,
+				B07286AA265F709A0088AD7E /* Extentions */,
+				B07286AF2660C33E0088AD7E /* Enums */,
+				B07286A4265F6BDB0088AD7E /* Font */,
 				B0E9FF462641BF1100302450 /* AppDelegate.swift */,
-				B0E9FF4A2641BF1100302450 /* StartViewController.swift */,
 				B0E9FF482641BF1100302450 /* SceneDelegate.swift */,
-				B06AAD53265D13E700F329B1 /* GameOverViewController.swift */,
-				B0E9FF5A2641BF8200302450 /* GameViewController.swift */,
-				B0E9FF5C2641BF9100302450 /* ScoreViewController.swift */,
-				B0E9FF5E2641BF9E00302450 /* SettingsViewController.swift */,
 				B0E9FF4C2641BF1100302450 /* Main.storyboard */,
 				B0E9FF4F2641BF1200302450 /* Assets.xcassets */,
 				B0E9FF512641BF1200302450 /* LaunchScreen.storyboard */,
@@ -217,20 +234,23 @@
 			files = (
 				B0E9FF5B2641BF8200302450 /* GameViewController.swift in Sources */,
 				B02DCDB42664C72F00EEEB74 /* GameBackgroundType.swift in Sources */,
+				B02DCE00266A383000EEEB74 /* UIImage+enum.swift in Sources */,
 				B0E9FF4B2641BF1100302450 /* StartViewController.swift in Sources */,
 				B0E9FF5D2641BF9100302450 /* ScoreViewController.swift in Sources */,
-				B06AAD52265C3C0E00F329B1 /* GameInterface.swift in Sources */,
+				B06AAD52265C3C0E00F329B1 /* GameUI.swift in Sources */,
 				B07286B12660C3690088AD7E /* GameStatus.swift in Sources */,
 				B06AAD56265D240900F329B1 /* UIImage+HEX.swift in Sources */,
 				B06AAD54265D13E700F329B1 /* GameOverViewController.swift in Sources */,
 				B0554EA22656DC2400375707 /* ObstructionType.swift in Sources */,
-				B0554E9E2656BE0900375707 /* Obstruction.swift in Sources */,
+				B02DCDFC2668F71600EEEB74 /* GameViewController+Alert.swift in Sources */,
+				B0554E9E2656BE0900375707 /* ObstructionUI.swift in Sources */,
+				B02DCDFE266A37D600EEEB74 /* Images.swift in Sources */,
 				B07286AC265F70BF0088AD7E /* UIFont+Custom.swift in Sources */,
-				B02DCDB62664C7A500EEEB74 /* GameBackground.swift in Sources */,
+				B02DCDB62664C7A500EEEB74 /* GameBackgroundUI.swift in Sources */,
 				B06AAD50265C307C00F329B1 /* Game.swift in Sources */,
 				B0E9FF472641BF1100302450 /* AppDelegate.swift in Sources */,
 				B0E9FF492641BF1100302450 /* SceneDelegate.swift in Sources */,
-				B0554E9A2656981100375707 /* Car.swift in Sources */,
+				B0554E9A2656981100375707 /* CarUI.swift in Sources */,
 				B0E9FF5F2641BF9E00302450 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

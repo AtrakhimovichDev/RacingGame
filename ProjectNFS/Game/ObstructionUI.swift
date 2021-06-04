@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Obstruction {
+class ObstructionUI {
 
     let obstructionImageView = UIImageView()
            
@@ -72,6 +72,7 @@ class Obstruction {
                 self.startAnimation()
             } else {
                 self.deleteObstraction = true
+                self.obstructionImageView.removeFromSuperview()
             }
         }
     }

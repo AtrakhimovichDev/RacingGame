@@ -7,29 +7,23 @@
 
 import UIKit
 
-class GameInterface {
+class GameUI {
     
     private let readyStadyGoImageView = UIImageView()
-    private let scoreLabel = UILabel()
-    private let outsideCircleControlView = UIView()
-    private let insideCircleControlView = UIView()
-    let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    private var endAnimation = false
     private let oneImage = UIImage(named: "one_icon")
     private let twoImage = UIImage(named: "two_icon")
     private let threeImage = UIImage(named: "three_icon")
-   
-    var score = 0 {
-        didSet {
-            self.scoreLabel.text = "Score \(score)"
-        }
-    }
-   
+    
+    private let outsideCircleControlView = UIView()
+    private let insideCircleControlView = UIView()
+    
     private var firstStepNumbersAnimation: (() -> ())?
     private var secondStepNumbersAnimation: (() -> ())?
     private var firstStepNumbersComplition: ((Bool) -> ())?
     private var secondStepNumbersComplition: ((Bool) -> ())?
     private var lastStepNumbersComplition: ((Bool) -> ())?
+    
+    private var endAnimation = false
     
     func startAnimation(mainView: UIView, lastComplition: @escaping (Bool) -> ()) {
         if let firstStepNumbersAnimation = self.firstStepNumbersAnimation,
@@ -59,26 +53,13 @@ class GameInterface {
         insideCircleControlView.alpha = 0.8
         insideCircleControlView.isHidden = true
         outsideCircleControlView.addSubview(insideCircleControlView)
-       
-        blurEffect.frame = mainView.bounds
-        blurEffect.alpha = 0
-        
+               
         mainView.addSubview(outsideCircleControlView)
-        //mainView.addSubview(insideCircleControlView)
 
-        scoreLabel.frame = CGRect(x: mainView.frame.width / 2 - 50, y: 10, width: 100, height: 30)
-        scoreLabel.textColor = .white
-        mainView.addSubview(scoreLabel)
-        
-       
-
-        let constX = NSLayoutConstraint(item: scoreLabel, attribute: .top, relatedBy: .equal, toItem: mainView, attribute: .top, multiplier: 1, constant: 300)
-        mainView.addConstraint(constX)
-        
         setAnimationRules(mainView: mainView)
-        
-        mainView.addSubview(blurEffect)
     }
+    
+
     
     func setStartAnimationSettings(mainView: UIView) {
         endAnimation = false

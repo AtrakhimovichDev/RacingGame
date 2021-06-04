@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GameBackground {
+class GameBackgroundUI {
     
     let imageViewFirst = UIImageView()
     let imageViewSecond = UIImageView()
