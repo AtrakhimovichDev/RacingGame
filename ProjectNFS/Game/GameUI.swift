@@ -10,9 +10,9 @@ import UIKit
 class GameUI {
     
     private let readyStadyGoImageView = UIImageView()
-    private let oneImage = UIImage(named: "one_icon")
-    private let twoImage = UIImage(named: "two_icon")
-    private let threeImage = UIImage(named: "three_icon")
+    //private let oneImage = UIImage(named: "one_icon")
+    //private let twoImage = UIImage(named: "two_icon")
+    //private let threeImage = UIImage(named: "three_icon")
     
     private let outsideCircleControlView = UIView()
     private let insideCircleControlView = UIView()
@@ -62,7 +62,7 @@ class GameUI {
     func setStartAnimationSettings(mainView: UIView) {
         endAnimation = false
         readyStadyGoImageView.frame = CGRect(x: mainView.frame.width, y: 350, width: 50, height: 70)
-        readyStadyGoImageView.image = UIImage(named: "three_icon")
+        readyStadyGoImageView.image = UIImage.createImage(named: .three)
         mainView.addSubview(readyStadyGoImageView)
     }
     
@@ -102,10 +102,10 @@ class GameUI {
     }
     
     private func changeNumberImage() {
-        if readyStadyGoImageView.image == threeImage {
-            readyStadyGoImageView.image = twoImage
-        } else if readyStadyGoImageView.image == twoImage {
-            readyStadyGoImageView.image = oneImage
+        if readyStadyGoImageView.image == UIImage.createImage(named: .three) {
+            readyStadyGoImageView.image = UIImage.createImage(named: .two)
+        } else if readyStadyGoImageView.image == UIImage.createImage(named: .two) {
+            readyStadyGoImageView.image = UIImage.createImage(named: .one)
         } else {
             endAnimation = true
         }

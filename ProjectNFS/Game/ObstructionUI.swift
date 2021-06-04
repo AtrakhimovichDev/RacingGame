@@ -40,9 +40,9 @@ class ObstructionUI {
         let obstractionSize = CGSize(width: obstractionWidth, height: obstractionHeight)
         obstructionImageView.frame = CGRect(origin: obstractionPoint, size: obstractionSize)
         if Bool.random() {
-            obstructionImageView.image = UIImage(named: "car2_icon")
+            obstructionImageView.image = UIImage.createImage(named: .car2)
         } else {
-            obstructionImageView.image = UIImage(named: "car3_icon")
+            obstructionImageView.image = UIImage.createImage(named: .car3)
         }
     }
     

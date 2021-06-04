@@ -12,6 +12,7 @@
 		B02DCDFC2668F71600EEEB74 /* GameViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDFB2668F71600EEEB74 /* GameViewController+Alert.swift */; };
 		B02DCDFE266A37D600EEEB74 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDFD266A37D600EEEB74 /* Images.swift */; };
 		B02DCE00266A383000EEEB74 /* UIImage+enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCDFF266A383000EEEB74 /* UIImage+enum.swift */; };
+		B02DCE04266A6A6F00EEEB74 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DCE03266A6A6F00EEEB74 /* Animations.swift */; };
 		B0554E9A2656981100375707 /* CarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E992656981100375707 /* CarUI.swift */; };
 		B0554E9E2656BE0900375707 /* ObstructionUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E9D2656BE0900375707 /* ObstructionUI.swift */; };
 		B0554EA22656DC2400375707 /* ObstructionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554EA12656DC2400375707 /* ObstructionType.swift */; };
@@ -39,6 +40,7 @@
 		B02DCDFB2668F71600EEEB74 /* GameViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+Alert.swift"; sourceTree = "<group>"; };
 		B02DCDFD266A37D600EEEB74 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		B02DCDFF266A383000EEEB74 /* UIImage+enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+enum.swift"; sourceTree = "<group>"; };
+		B02DCE03266A6A6F00EEEB74 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		B0554E992656981100375707 /* CarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarUI.swift; sourceTree = "<group>"; };
 		B0554E9D2656BE0900375707 /* ObstructionUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstructionUI.swift; sourceTree = "<group>"; };
 		B0554EA12656DC2400375707 /* ObstructionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstructionType.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				B0E9FF4F2641BF1200302450 /* Assets.xcassets */,
 				B0E9FF512641BF1200302450 /* LaunchScreen.storyboard */,
 				B0E9FF542641BF1200302450 /* Info.plist */,
+				B02DCE03266A6A6F00EEEB74 /* Animations.swift */,
 			);
 			path = ProjectNFS;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				B0E9FF492641BF1100302450 /* SceneDelegate.swift in Sources */,
 				B0554E9A2656981100375707 /* CarUI.swift in Sources */,
 				B0E9FF5F2641BF9E00302450 /* SettingsViewController.swift in Sources */,
+				B02DCE04266A6A6F00EEEB74 /* Animations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

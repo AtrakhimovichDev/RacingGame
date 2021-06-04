@@ -8,6 +8,9 @@
 import Foundation
 
 enum Images: String {
+    case car1 = "car1_icon"
+    case car2 = "car2_icon"
+    case car3 = "car3_icon"
     case menuBackground = "menu_background"
     case settingsButton = "Settings_BTN"
     case clouseButton = "Close_BTN"

@@ -72,7 +72,7 @@ class CarUI {
     private func setCarImageViewSettings(mainViewSize: CGSize) {
         carView.frame.origin = CGPoint(x: mainViewSize.width / 2 - carWidth / 2, y: mainViewSize.height - carHeight - 100)
         carView.frame.size = CGSize(width: carWidth, height: carHeight)
-        carImageView.image = UIImage(named: "car_icon")
+        carImageView.image = UIImage.createImage(named: .car1)
         carImageView.frame = carView.bounds
 
         carView.addSubview(carImageView)

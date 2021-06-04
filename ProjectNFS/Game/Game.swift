@@ -5,10 +5,9 @@
 //  Created by Andrei Atrakhimovich on 24.05.21.
 //
 
-import UIKit
+import CoreGraphics
 
 class Game {
-    //let gameUI: GameUI = GameUI()
     var car: CarUI = CarUI()
    
     private var gameStatus: GameStatus = .start
@@ -17,39 +16,41 @@ class Game {
     private var hpAmount = 3
     private var armorAmount = 2
     
-    func startBackgroundAnimation(mainView: UIView) {
+    func startBackgroundAnimation() {
         for gameBackground in backgroundsArray {
             gameBackground.stopAnimation = false
             gameBackground.startAnimation()
         }
     }
-   
-    
+       
     func stopBackgroundAnimation() {
         for background in backgroundsArray {
             background.stopAnimation = true
         }
     }
     
+    func startObstructionsAnimation() {
+        for obstruction in obstructionsArray {
+            obstruction.stopAnimation = false
+            obstruction.startAnimation()
+        }
+    }
+    
+    func stopObstructionsAnimation() {
+        for obstruction in obstructionsArray {
+            obstruction.stopAnimation = true
+        }
+    }
+    
     func pauseGame() {
         if gameStatus != .pause {
             gameStatus = .pause
-            for background in backgroundsArray {
-                background.stopAnimation = true
-            }
-            for obstruction in obstructionsArray {
-                obstruction.stopAnimation = true
-            }
+            stopBackgroundAnimation()
+            stopObstructionsAnimation()
         } else {
             gameStatus = .play
-            for background in backgroundsArray {
-                background.stopAnimation = false
-                background.startAnimation()
-            }
-            for obstruction in obstructionsArray {
-                obstruction.stopAnimation = false
-                obstruction.startAnimation()
-            }
+            startBackgroundAnimation()
+            startObstructionsAnimation()
         }
     }
     

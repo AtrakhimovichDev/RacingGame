@@ -65,13 +65,13 @@ class GameViewController: UIViewController {
         gameUI.startAnimation(mainView: mainView) { _ in
             self.game.setGameStatus(newStatus: .play)
         }
-        game.startBackgroundAnimation(mainView: mainView)
+        game.startBackgroundAnimation()
         startGameTimers()
     }
     
     private func pauseUnpauseGame() {
         let gameStatus = game.getGameStatus()
-        if gameStatus == .play {
+        if gameStatus == .play || gameStatus == .gameOver {
             game.pauseGame()
             animateMenuView(moveTo: 80) { _ in }
         } else if gameStatus == .pause {
@@ -88,7 +88,10 @@ class GameViewController: UIViewController {
         setStartHPArmorImages()
         animateMenuView(moveTo: -self.mainView.frame.height / 2 - 45) { _ in }
         gameUI.setStartAnimationSettings(mainView: self.mainView)
-        game.startBackgroundAnimation(mainView: self.mainView)
+        gameUI.startAnimation(mainView: mainView) { _ in
+            self.game.setGameStatus(newStatus: .play)
+        }
+        game.startBackgroundAnimation()
         startGameTimers()
     }
     
@@ -348,6 +351,7 @@ class GameViewController: UIViewController {
                             self.game.car.afterCrash = false
                             self.needToResetAfterCrush = true
                         }
+                        Animations.requireUserAtencion(on: self.mainView)
                         self.needToResetAfterCrush = false
                     }
                 }
