@@ -26,6 +26,7 @@ class CarUI {
     private var controlAllowance: CGFloat = 25
     private var carIsMooving = false
     
+    var carDmgLvl = 0
     var afterCrash = false
     
     func setStartPosition(mainViewSize: CGSize) {
@@ -69,10 +70,27 @@ class CarUI {
         carIsMooving = !carIsMooving
     }
     
+    func changeCarImage() {
+        switch carDmgLvl {
+        case 0:
+            carImageView.image = UIImage.getImage(named: .car1_dmg0)
+        case 1:
+            carImageView.image = UIImage.getImage(named: .car1_dmg1)
+        case 2:
+            carImageView.image = UIImage.getImage(named: .car1_dmg2)
+        case 3:
+            carImageView.image = UIImage.getImage(named: .car1_dmg3)
+        case 4:
+            carImageView.image = UIImage.getImage(named: .car1_dmg4)
+        default:
+            break
+        }
+    }
+    
     private func setCarImageViewSettings(mainViewSize: CGSize) {
         carView.frame.origin = CGPoint(x: mainViewSize.width / 2 - carWidth / 2, y: mainViewSize.height - carHeight - 100)
         carView.frame.size = CGSize(width: carWidth, height: carHeight)
-        carImageView.image = UIImage.createImage(named: .car1)
+        carImageView.image = UIImage.getImage(named: .car1_dmg0)
         carImageView.frame = carView.bounds
 
         carView.addSubview(carImageView)
@@ -116,7 +134,6 @@ class CarUI {
             }
         }
     }
-    
     
     
 }

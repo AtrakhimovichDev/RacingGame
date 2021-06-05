@@ -16,6 +16,11 @@
 		B0554E9A2656981100375707 /* CarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E992656981100375707 /* CarUI.swift */; };
 		B0554E9E2656BE0900375707 /* ObstructionUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554E9D2656BE0900375707 /* ObstructionUI.swift */; };
 		B0554EA22656DC2400375707 /* ObstructionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0554EA12656DC2400375707 /* ObstructionType.swift */; };
+		B059A7B5266BD178001142B1 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7B4266BD178001142B1 /* Car.swift */; };
+		B059A7B7266BD90E001142B1 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7B6266BD90E001142B1 /* Direction.swift */; };
+		B059A7B9266BE123001142B1 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7B8266BE123001142B1 /* UserDefaultsKeys.swift */; };
+		B059A7BB266BE2BC001142B1 /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7BA266BE2BC001142B1 /* GameDifficulty.swift */; };
+		B059A7BD266BE69E001142B1 /* GameLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7BC266BE69E001142B1 /* GameLocation.swift */; };
 		B06AAD50265C307C00F329B1 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD4F265C307C00F329B1 /* Game.swift */; };
 		B06AAD52265C3C0E00F329B1 /* GameUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD51265C3C0E00F329B1 /* GameUI.swift */; };
 		B06AAD54265D13E700F329B1 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD53265D13E700F329B1 /* GameOverViewController.swift */; };
@@ -44,6 +49,11 @@
 		B0554E992656981100375707 /* CarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarUI.swift; sourceTree = "<group>"; };
 		B0554E9D2656BE0900375707 /* ObstructionUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstructionUI.swift; sourceTree = "<group>"; };
 		B0554EA12656DC2400375707 /* ObstructionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstructionType.swift; sourceTree = "<group>"; };
+		B059A7B4266BD178001142B1 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		B059A7B6266BD90E001142B1 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		B059A7B8266BE123001142B1 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		B059A7BA266BE2BC001142B1 /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
+		B059A7BC266BE69E001142B1 /* GameLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocation.swift; sourceTree = "<group>"; };
 		B06AAD4F265C307C00F329B1 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B06AAD51265C3C0E00F329B1 /* GameUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUI.swift; sourceTree = "<group>"; };
 		B06AAD53265D13E700F329B1 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +135,11 @@
 				B07286B02660C3690088AD7E /* GameStatus.swift */,
 				B02DCDB32664C72F00EEEB74 /* GameBackgroundType.swift */,
 				B02DCDFD266A37D600EEEB74 /* Images.swift */,
+				B059A7B4266BD178001142B1 /* Car.swift */,
+				B059A7B6266BD90E001142B1 /* Direction.swift */,
+				B059A7B8266BE123001142B1 /* UserDefaultsKeys.swift */,
+				B059A7BA266BE2BC001142B1 /* GameDifficulty.swift */,
+				B059A7BC266BE69E001142B1 /* GameLocation.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -239,6 +254,7 @@
 				B02DCDB42664C72F00EEEB74 /* GameBackgroundType.swift in Sources */,
 				B02DCE00266A383000EEEB74 /* UIImage+enum.swift in Sources */,
 				B0E9FF4B2641BF1100302450 /* StartViewController.swift in Sources */,
+				B059A7B9266BE123001142B1 /* UserDefaultsKeys.swift in Sources */,
 				B0E9FF5D2641BF9100302450 /* ScoreViewController.swift in Sources */,
 				B06AAD52265C3C0E00F329B1 /* GameUI.swift in Sources */,
 				B07286B12660C3690088AD7E /* GameStatus.swift in Sources */,
@@ -253,6 +269,10 @@
 				B06AAD50265C307C00F329B1 /* Game.swift in Sources */,
 				B0E9FF472641BF1100302450 /* AppDelegate.swift in Sources */,
 				B0E9FF492641BF1100302450 /* SceneDelegate.swift in Sources */,
+				B059A7BB266BE2BC001142B1 /* GameDifficulty.swift in Sources */,
+				B059A7B7266BD90E001142B1 /* Direction.swift in Sources */,
+				B059A7B5266BD178001142B1 /* Car.swift in Sources */,
+				B059A7BD266BE69E001142B1 /* GameLocation.swift in Sources */,
 				B0554E9A2656981100375707 /* CarUI.swift in Sources */,
 				B0E9FF5F2641BF9E00302450 /* SettingsViewController.swift in Sources */,
 				B02DCE04266A6A6F00EEEB74 /* Animations.swift in Sources */,

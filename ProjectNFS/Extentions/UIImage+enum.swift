@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImage {
-    static func createImage(named: Images) -> UIImage? {
+    static func getImage(named: Images) -> UIImage? {
         return UIImage(named: named.rawValue)
     }
 }

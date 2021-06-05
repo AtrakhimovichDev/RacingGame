@@ -92,6 +92,10 @@ class GameViewController: UIViewController {
             self.game.setGameStatus(newStatus: .play)
         }
         game.startBackgroundAnimation()
+        score = 0
+        setRestartScoreSettings()
+        game.car.carDmgLvl = 0
+        game.car.changeCarImage()
         startGameTimers()
     }
     
@@ -205,7 +209,7 @@ class GameViewController: UIViewController {
     
     private func setMenuButtonSettings() {
         menuButton.frame = CGRect(x: mainView.frame.width - 55, y: 15, width: 50, height: 50)
-        menuButton.setBackgroundImage(UIImage.createImage(named: .settingsButton), for: .normal)
+        menuButton.setBackgroundImage(UIImage.getImage(named: .settingsButton), for: .normal)
         menuButton.tintColor = UIColor.white
         menuButton.addTarget(self, action: #selector(settingsButtonPressed), for: .touchDown)
         mainView.addSubview(menuButton)
@@ -218,18 +222,18 @@ class GameViewController: UIViewController {
         
         let menuImageView = UIImageView()
         menuImageView.frame = menuView.bounds
-        menuImageView.image = UIImage.createImage(named: .menuBackground)
+        menuImageView.image = UIImage.getImage(named: .menuBackground)
         
         exitButton.frame = CGRect(x: menuView.frame.width - 75, y: 13, width: 40, height: 40)
-        exitButton.setBackgroundImage(UIImage.createImage(named: .clouseButton), for: .normal)
+        exitButton.setBackgroundImage(UIImage.getImage(named: .clouseButton), for: .normal)
         exitButton.addTarget(self, action: #selector(exitAction), for: .touchDown)
         
         restartButton.frame = CGRect(x: 30, y: menuView.frame.height - 90, width: 70, height: 70)
-        restartButton.setBackgroundImage(UIImage.createImage(named: .replayButton), for: .normal)
+        restartButton.setBackgroundImage(UIImage.getImage(named: .replayButton), for: .normal)
         restartButton.addTarget(self, action: #selector(restartAction), for: .touchDown)
         
         resumeButton.frame = CGRect(x: menuView.frame.width - 100, y: menuView.frame.height - 90, width: 70, height: 70)
-        resumeButton.setBackgroundImage(UIImage.createImage(named: .playButton), for: .normal)
+        resumeButton.setBackgroundImage(UIImage.getImage(named: .playButton), for: .normal)
         resumeButton.addTarget(self, action: #selector(resumeAction), for: .touchDown)
         
         menuView.addSubview(menuImageView)
@@ -243,7 +247,7 @@ class GameViewController: UIViewController {
     private func setScoreSettings() {
         let scoreImageView = UIImageView()
         scoreImageView.frame = scoreLabelView.bounds
-        scoreImageView.image = UIImage.createImage(named: .scoreLabel)
+        scoreImageView.image = UIImage.getImage(named: .scoreLabel)
         scoreLabelView.addSubview(scoreImageView)
         
         scoreNumbersArray.append(createImageView(parentView: firstNumberScoreView, image: .zero))
@@ -252,10 +256,16 @@ class GameViewController: UIViewController {
         scoreNumbersArray.append(createImageView(parentView: fourthNumberScoreView, image: .zero))
     }
     
+    private func setRestartScoreSettings() {
+        for numberImage in scoreNumbersArray {
+            numberImage.image = UIImage.getImage(named: .zero)
+        }
+    }
+    
     private func setHPViewSettings() {
         let hpImageView = UIImageView()
         hpImageView.frame = hpView.bounds
-        hpImageView.image = UIImage.createImage(named: .hpBar)
+        hpImageView.image = UIImage.getImage(named: .hpBar)
         
         hpView.addSubview(hpImageView)
         
@@ -271,7 +281,7 @@ class GameViewController: UIViewController {
     private func setArmorViewSettings() {
         let armorImageView = UIImageView()
         armorImageView.frame = armorView.bounds
-        armorImageView.image = UIImage.createImage(named: .armorBar)
+        armorImageView.image = UIImage.getImage(named: .armorBar)
         
         armorView.addSubview(armorImageView)
 
@@ -284,10 +294,10 @@ class GameViewController: UIViewController {
     
     private func setStartHPArmorImages() {
         for hpImageView in hpArray {
-            hpImageView.image = UIImage.createImage(named: .hpFull)
+            hpImageView.image = UIImage.getImage(named: .hpFull)
         }
         for armorImageView in armorArray {
-            armorImageView.image = UIImage.createImage(named: .armorFull)
+            armorImageView.image = UIImage.getImage(named: .armorFull)
         }
         currentArmor = 2
         currentHp = 3
@@ -347,11 +357,13 @@ class GameViewController: UIViewController {
                 self.checkHPAndArmorView()
                 if self.game.car.afterCrash {
                     if self.needToResetAfterCrush {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             self.game.car.afterCrash = false
                             self.needToResetAfterCrush = true
                         }
                         Animations.requireUserAtencion(on: self.mainView)
+                        self.game.car.carDmgLvl += 1
+                        self.game.car.changeCarImage()
                         self.needToResetAfterCrush = false
                     }
                 }
@@ -377,12 +389,12 @@ class GameViewController: UIViewController {
         let armorAmount = game.getArmor()
         if armorAmount != currentArmor {
             currentArmor = armorAmount
-            armorArray[currentArmor].image = UIImage.createImage(named: .armorZero)
+            armorArray[currentArmor].image = UIImage.getImage(named: .armorZero)
         } else {
             let hpAmount = game.getHP()
             if hpAmount != currentHp {
                 currentHp = hpAmount
-                hpArray[currentHp].image = UIImage.createImage(named: .hpZero)
+                hpArray[currentHp].image = UIImage.getImage(named: .hpZero)
             }
         }
     }
@@ -454,7 +466,7 @@ class GameViewController: UIViewController {
     private func createImageView(parentView: UIView, image: Images) -> UIImageView {
         let imageView = UIImageView()
         imageView.frame = parentView.bounds
-        imageView.image = UIImage.createImage(named: image)
+        imageView.image = UIImage.getImage(named: image)
         parentView.addSubview(imageView)
         return imageView
     }

@@ -62,7 +62,7 @@ class GameUI {
     func setStartAnimationSettings(mainView: UIView) {
         endAnimation = false
         readyStadyGoImageView.frame = CGRect(x: mainView.frame.width, y: 350, width: 50, height: 70)
-        readyStadyGoImageView.image = UIImage.createImage(named: .three)
+        readyStadyGoImageView.image = UIImage.getImage(named: .three)
         mainView.addSubview(readyStadyGoImageView)
     }
     
@@ -102,10 +102,10 @@ class GameUI {
     }
     
     private func changeNumberImage() {
-        if readyStadyGoImageView.image == UIImage.createImage(named: .three) {
-            readyStadyGoImageView.image = UIImage.createImage(named: .two)
-        } else if readyStadyGoImageView.image == UIImage.createImage(named: .two) {
-            readyStadyGoImageView.image = UIImage.createImage(named: .one)
+        if readyStadyGoImageView.image == UIImage.getImage(named: .three) {
+            readyStadyGoImageView.image = UIImage.getImage(named: .two)
+        } else if readyStadyGoImageView.image == UIImage.getImage(named: .two) {
+            readyStadyGoImageView.image = UIImage.getImage(named: .one)
         } else {
             endAnimation = true
         }
