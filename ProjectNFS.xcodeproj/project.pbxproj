@@ -21,6 +21,7 @@
 		B059A7B9266BE123001142B1 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7B8266BE123001142B1 /* UserDefaultsKeys.swift */; };
 		B059A7BB266BE2BC001142B1 /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7BA266BE2BC001142B1 /* GameDifficulty.swift */; };
 		B059A7BD266BE69E001142B1 /* GameLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059A7BC266BE69E001142B1 /* GameLocation.swift */; };
+		B0692302266F3F3000716B64 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0692301266F3F3000716B64 /* UserSettings.swift */; };
 		B06AAD50265C307C00F329B1 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD4F265C307C00F329B1 /* Game.swift */; };
 		B06AAD52265C3C0E00F329B1 /* GameUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD51265C3C0E00F329B1 /* GameUI.swift */; };
 		B06AAD54265D13E700F329B1 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AAD53265D13E700F329B1 /* GameOverViewController.swift */; };
@@ -55,6 +56,7 @@
 		B059A7B8266BE123001142B1 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		B059A7BA266BE2BC001142B1 /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
 		B059A7BC266BE69E001142B1 /* GameLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocation.swift; sourceTree = "<group>"; };
+		B0692301266F3F3000716B64 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B06AAD4F265C307C00F329B1 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B06AAD51265C3C0E00F329B1 /* GameUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUI.swift; sourceTree = "<group>"; };
 		B06AAD53265D13E700F329B1 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				B0554E992656981100375707 /* CarUI.swift */,
 				B0554E9D2656BE0900375707 /* ObstructionUI.swift */,
 				B02DCDB52664C7A500EEEB74 /* GameBackgroundUI.swift */,
+				B0692301266F3F3000716B64 /* UserSettings.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				B059A7BD266BE69E001142B1 /* GameLocation.swift in Sources */,
 				B0554E9A2656981100375707 /* CarUI.swift in Sources */,
 				B0E9FF5F2641BF9E00302450 /* SettingsViewController.swift in Sources */,
+				B0692302266F3F3000716B64 /* UserSettings.swift in Sources */,
 				B02DCE04266A6A6F00EEEB74 /* Animations.swift in Sources */,
 				B0862C1D266D21B70054577A /* UsedDefaults+enum.swift in Sources */,
 			);

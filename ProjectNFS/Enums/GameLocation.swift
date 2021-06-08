@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GameLocation: String {
+enum GameLocation: String, Codable {
     case city = "City"
     case town = "Town"
 }

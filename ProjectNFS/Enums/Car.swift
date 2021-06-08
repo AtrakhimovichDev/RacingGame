@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Car: String {
+enum Car: String, Codable {
     case camaro = "Camaro"
     case police = "Police"
     case viper = "Viper"

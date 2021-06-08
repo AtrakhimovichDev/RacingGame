@@ -8,9 +8,5 @@
 import Foundation
 
 enum UserDefaultsKeys: String {
-    case userName = "User_name"
-    case gameDifficulty = "Game_difficulty"
-    case gameLocation = "Game_location"
-    case immortality = "Immortality"
-    case userCar = "User_car"
+    case userSettings = "User_settings"
 }

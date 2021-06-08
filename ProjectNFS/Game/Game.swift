@@ -9,18 +9,18 @@ import Foundation
 import CoreGraphics
 
 class Game {
-    var car: CarUI = CarUI()
-   
+    lazy var car = CarUI(car: userSettings.car)
+    
     private var gameStatus: GameStatus = .start
     private var obstructionsArray: [ObstructionUI] = []
     private var backgroundsArray: [GameBackgroundUI] = []
     private var hpAmount = 3
     private var armorAmount = 2
-    private var immortalityMode = false
+    private var userSettings: UserSettings
     private var userDefaults = UserDefaults.standard
     
-    init() {
-        self.immortalityMode = userDefaults.value(forKey: .immortality) as? Bool ?? false
+    init(userSettings: UserSettings) {
+        self.userSettings = userSettings
     }
     
     func startBackgroundAnimation() {
@@ -100,9 +100,9 @@ class Game {
     }
     
     func createCar(mainViewSize: CGSize) -> CarUI {
-        let car = CarUI()
+        //let car = CarUI(car: userSettings.car)
         car.setCarSettings(mainViewSize: mainViewSize)
-        self.car = car
+        //self.car = car
         return car
     }
     
@@ -118,7 +118,7 @@ class Game {
     }
     
     func checkCrush(mainViewMaxX: CGFloat) {
-        if !immortalityMode {
+        if !userSettings.immortality {
             if !car.afterCrash {
                 checkAwayFromRoadCrush(mainViewMaxX: mainViewMaxX)
                 checkObstructionCrash()

@@ -168,6 +168,9 @@
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oYZ-qw-tB5">
                                                         <rect key="frame" x="171" y="10" width="51" height="31"/>
                                                         <color key="onTintColor" systemColor="systemBlueColor"/>
+                                                        <connections>
+                                                            <action selector="immortalitySwitchAction:" destination="dqi-9I-EFJ" eventType="valueChanged" id="xkf-dD-Lyj"/>
+                                                        </connections>
                                                     </switch>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

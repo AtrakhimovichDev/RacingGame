@@ -30,9 +30,8 @@ class CarUI {
     private var userDefaults = UserDefaults.standard
     private var carImages: [UIImage?] = []
     
-    init() {
-        let userCarString = userDefaults.value(forKey: .userCar) as? String ?? "Viper"
-        userCar = Car.init(rawValue: userCarString)
+    init(car: Car) {
+        userCar = car
     }
     
     var carDmgLvl = 0

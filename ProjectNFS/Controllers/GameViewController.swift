@@ -43,8 +43,8 @@ class GameViewController: UIViewController {
     private var hpArray: [UIImageView] = []
     private var armorArray: [UIImageView] = []
     
+    private var userSettings = UserSettings(name: "Street racer", difficulty: .easy, location: .city, immortality: false, car: .viper)
     private var userDefaults = UserDefaults.standard
-    private var location: GameLocation?
     private var needToResetAfterCrush = true
     private var currentArmor = 2
     private var currentHp = 3
@@ -53,14 +53,13 @@ class GameViewController: UIViewController {
             changeScoreView()
         }
     }
-    
-    private let game = Game()
+
+    private lazy var game = Game(userSettings: userSettings)
     private let gameUI = GameUI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gameLocationString = userDefaults.value(forKey: .gameLocation) as? String ?? "City"
-        location = GameLocation(rawValue: gameLocationString)
+        readUserSettings()
         setGameSettings()
     }
     
@@ -112,11 +111,7 @@ class GameViewController: UIViewController {
     }
     
     
-    
-    
-    /* Button actions.
- 
-    */
+    // MARK: - buttons Actions
   
     @objc func exitAction() {
         showExitAlert { _ in
@@ -161,7 +156,7 @@ class GameViewController: UIViewController {
     
     
     
-    /* Начальные настройки игры:
+    /* MARK: Начальные настройки игры:
         - setStartViewsSettings - назначает PanGesture, который отвечает за перемещение машины.
             И минимальные настроек backgroundView.
         - createGameBackground - создает объекты класса GameBackgroundUI. Объекты содержат в себе настроенные UIImageView и правила по которым анимируется фон.
@@ -172,7 +167,18 @@ class GameViewController: UIViewController {
         - setHPViewSettings & setArmorViewSettings - устанавливает оформление и картинки для HP & Armor bar.
         - gameUI.setGameUISettings(mainView: mainView) - GameUI отвечает за 2 вещи: за колесо управления машиной и стартовую анимацию обратного отсчета.
      */
-     
+    
+    private func readUserSettings() {
+        if let userSettingsData = userDefaults.value(forKey: .userSettings) as? Data {
+            do {
+                let userSettings = try JSONDecoder().decode(UserSettings.self, from: userSettingsData)
+                self.userSettings = userSettings
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     private func setGameSettings() {
         setStartViewsSettings()
         createGameBackground()
@@ -196,7 +202,7 @@ class GameViewController: UIViewController {
     private func createGameBackground() {
         var backgroundTypeMain: GameBackgroundType?
         var backgroundType: GameBackgroundType?
-        switch location {
+        switch userSettings.location {
         case .city:
             backgroundTypeMain = .road
             backgroundType = .grass
@@ -475,9 +481,7 @@ class GameViewController: UIViewController {
     }
     
     
-    /* Общие вспомогательные функции.
-     
-     */
+    // MARK: Additional functions
     
     private func createImageView(parentView: UIView, image: Images) -> UIImageView {
         let imageView = UIImageView()

@@ -34,16 +34,17 @@ class SettingsViewController: UIViewController {
     private var curentCarImageView = UIImageView()
     private var hiddenCarImageView = UIImageView()
     
-    private var gameDifficulty: GameDifficulty?
-    private var gameLocation: GameLocation?
+    private var userSettings: UserSettings?
+    
     private var carPickerIsShown = false
     private var carsArray: [(Car,UIImage?)] = []
-    private var curentCarIndex = 0
+    private var currentCarIndex = 0
     private let userDefaults = UserDefaults.standard
     
     private var racerName = "" {
         didSet {
             userNameLabel.text = racerName
+            userSettings?.name = racerName
         }
     }
     
@@ -78,17 +79,17 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func saveSettingsButtonAction(_ sender: Any) {
-        userDefaults.setValue(racerName, forKey: UserDefaultsKeys.userName.rawValue)
-        userDefaults.setValue(gameDifficulty?.rawValue, forKey: UserDefaultsKeys.gameDifficulty.rawValue)
-        userDefaults.setValue(gameLocation?.rawValue, forKey: UserDefaultsKeys.gameLocation.rawValue)
-        userDefaults.setValue(immortalitySwitch.isOn, forKey: UserDefaultsKeys.immortality.rawValue)
-        userDefaults.setValue(carNameLabel.text, forKey: UserDefaultsKeys.userCar.rawValue)
+        if let userSettings = self.userSettings {
+            let userSettingsData = try? JSONEncoder().encode(userSettings)
+            userDefaults.setValue(userSettingsData, forKey: UserDefaultsKeys.userSettings.rawValue)
+        }
         navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func chooseCarButtonAction(_ sender: Any) {
         animateCarPicker()
-        carNameLabel.text = carsArray[curentCarIndex].0.rawValue
+        carNameLabel.text = carsArray[currentCarIndex].0.rawValue
+        userSettings?.car = carsArray[currentCarIndex].0
     }
     
     @IBAction func slideLeftButtonAction(_ sender: Any) {
@@ -109,26 +110,26 @@ class SettingsViewController: UIViewController {
     
     @IBAction func changeGameDifficultyAction(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0:
-            gameDifficulty = .easy
         case 1:
-            gameDifficulty = .medium
+            userSettings?.difficulty = .medium
         case 2:
-            gameDifficulty = .hard
+            userSettings?.difficulty = .hard
         default:
-            gameDifficulty = .easy
+            userSettings?.difficulty = .easy
         }
     }
     
     @IBAction func changeGameLocation(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0:
-            gameLocation = .city
         case 1:
-            gameLocation = .town
+            userSettings?.location = .town
         default:
-            gameLocation = .city
+            userSettings?.location = .city
         }
+    }
+    
+    @IBAction func immortalitySwitchAction(_ sender: Any) {
+        userSettings?.immortality = immortalitySwitch.isOn
     }
     
     private func animateCarPicker() {
@@ -165,22 +166,22 @@ class SettingsViewController: UIViewController {
     private func changeCurentCarIndex(direction: Direction) {
         switch direction {
         case .left:
-            if curentCarIndex + 1 < carsArray.count {
-                curentCarIndex += 1
+            if currentCarIndex + 1 < carsArray.count {
+                currentCarIndex += 1
             } else {
-                curentCarIndex = 0
+                currentCarIndex = 0
             }
         case .right:
-            if curentCarIndex - 1 >= 0 {
-                curentCarIndex -= 1
+            if currentCarIndex - 1 >= 0 {
+                currentCarIndex -= 1
             } else {
-                curentCarIndex = carsArray.count - 1
+                currentCarIndex = carsArray.count - 1
             }
         }
     }
     
     private func setHiddenViewImage(direction: Direction) {
-        hiddenCarImageView.image = carsArray[curentCarIndex].1
+        hiddenCarImageView.image = carsArray[currentCarIndex].1
     }
     
     private func moveImageView(direction: Direction) {
@@ -203,7 +204,7 @@ class SettingsViewController: UIViewController {
         for carIndex in carsArray.indices {
             if carsArray[carIndex].0 == curentCar {
                 carImageView.image = carsArray[carIndex].1
-                curentCarIndex = carIndex
+                currentCarIndex = carIndex
                 break
             }
         }
@@ -235,11 +236,24 @@ class SettingsViewController: UIViewController {
     }
     
     private func readUsedDefaults() {
-        racerName = userDefaults.value(forKey: UserDefaultsKeys.userName.rawValue) as? String ?? "User name"
-        
-        let gameDifString = userDefaults.value(forKey: UserDefaultsKeys.gameDifficulty.rawValue) as? String ?? "Easy"
-        gameDifficulty = GameDifficulty(rawValue: gameDifString)
-        switch gameDifficulty {
+        if let userSettingsData = userDefaults.value(forKey: .userSettings) as? Data {
+            do {
+                let userSettings = try JSONDecoder().decode(UserSettings.self, from: userSettingsData)
+                self.userSettings = userSettings
+                fillUserSettingsData()
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        } else {
+            let userSettings = UserSettings(name: racerName, difficulty: .easy, location: .city, immortality: false, car: .viper)
+            self.userSettings = userSettings
+        }
+    }
+    
+    private func fillUserSettingsData() {
+        racerName = userSettings?.name ?? "Street racer"
+        switch userSettings?.difficulty {
         case .medium:
             difficultyPicker.selectedSegmentIndex = 1
         case .hard:
@@ -247,18 +261,15 @@ class SettingsViewController: UIViewController {
         default:
             difficultyPicker.selectedSegmentIndex = 0
         }
-        
-        let gameLocationString = userDefaults.value(forKey: UserDefaultsKeys.gameLocation.rawValue) as? String ?? "City"
-        gameLocation = GameLocation(rawValue: gameLocationString)
-        switch gameLocation {
+        switch userSettings?.location {
         case .town:
             locationPicker.selectedSegmentIndex = 1
         default:
             locationPicker.selectedSegmentIndex = 0
         }
-                
-        immortalitySwitch.isOn = userDefaults.value(forKey: UserDefaultsKeys.immortality.rawValue) as? Bool ?? false
-        carNameLabel.text = userDefaults.value(forKey: UserDefaultsKeys.userCar.rawValue) as? String ?? "Viper"
+        immortalitySwitch.isOn = userSettings?.immortality ?? false
+        carNameLabel.text = userSettings?.car.rawValue
+        
     }
     
     private func setStartViewsSettings() {
