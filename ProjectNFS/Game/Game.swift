@@ -5,6 +5,7 @@
 //  Created by Andrei Atrakhimovich on 24.05.21.
 //
 
+import Foundation
 import CoreGraphics
 
 class Game {
@@ -15,6 +16,12 @@ class Game {
     private var backgroundsArray: [GameBackgroundUI] = []
     private var hpAmount = 3
     private var armorAmount = 2
+    private var immortalityMode = false
+    private var userDefaults = UserDefaults.standard
+    
+    init() {
+        self.immortalityMode = userDefaults.value(forKey: .immortality) as? Bool ?? false
+    }
     
     func startBackgroundAnimation() {
         for gameBackground in backgroundsArray {
@@ -111,9 +118,11 @@ class Game {
     }
     
     func checkCrush(mainViewMaxX: CGFloat) {
-        if !car.afterCrash {
-            checkAwayFromRoadCrush(mainViewMaxX: mainViewMaxX)
-            checkObstructionCrash()
+        if !immortalityMode {
+            if !car.afterCrash {
+                checkAwayFromRoadCrush(mainViewMaxX: mainViewMaxX)
+                checkObstructionCrash()
+            }
         }
     }
 

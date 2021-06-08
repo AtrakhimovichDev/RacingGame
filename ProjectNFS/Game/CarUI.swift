@@ -26,6 +26,15 @@ class CarUI {
     private var controlAllowance: CGFloat = 25
     private var carIsMooving = false
     
+    private var userCar: Car?
+    private var userDefaults = UserDefaults.standard
+    private var carImages: [UIImage?] = []
+    
+    init() {
+        let userCarString = userDefaults.value(forKey: .userCar) as? String ?? "Viper"
+        userCar = Car.init(rawValue: userCarString)
+    }
+    
     var carDmgLvl = 0
     var afterCrash = false
     
@@ -62,8 +71,32 @@ class CarUI {
     }
     
     func setCarSettings(mainViewSize: CGSize) {
+        fillCarImmagesArray()
         setCarImageViewSettings(mainViewSize: mainViewSize)
         setAnimationRules(mainViewSize: mainViewSize)
+    }
+    
+    private func fillCarImmagesArray() {
+        switch userCar {
+        case .camaro:
+            carImages.append(UIImage.getImage(named: .camaro_dmg0))
+            carImages.append(UIImage.getImage(named: .camaro_dmg1))
+            carImages.append(UIImage.getImage(named: .camaro_dmg2))
+            carImages.append(UIImage.getImage(named: .camaro_dmg3))
+            carImages.append(UIImage.getImage(named: .camaro_dmg4))
+        case .police:
+            carImages.append(UIImage.getImage(named: .police_dmg0))
+            carImages.append(UIImage.getImage(named: .police_dmg1))
+            carImages.append(UIImage.getImage(named: .police_dmg2))
+            carImages.append(UIImage.getImage(named: .police_dmg3))
+            carImages.append(UIImage.getImage(named: .police_dmg4))
+        default:
+            carImages.append(UIImage.getImage(named: .viper_dmg0))
+            carImages.append(UIImage.getImage(named: .viper_dmg1))
+            carImages.append(UIImage.getImage(named: .viper_dmg2))
+            carImages.append(UIImage.getImage(named: .viper_dmg3))
+            carImages.append(UIImage.getImage(named: .viper_dmg4))
+        }
     }
     
     func changeCarMoovingStatus() {
@@ -73,15 +106,15 @@ class CarUI {
     func changeCarImage() {
         switch carDmgLvl {
         case 0:
-            carImageView.image = UIImage.getImage(named: .car1_dmg0)
+            carImageView.image = carImages[0]
         case 1:
-            carImageView.image = UIImage.getImage(named: .car1_dmg1)
+            carImageView.image = carImages[1]
         case 2:
-            carImageView.image = UIImage.getImage(named: .car1_dmg2)
+            carImageView.image = carImages[2]
         case 3:
-            carImageView.image = UIImage.getImage(named: .car1_dmg3)
+            carImageView.image = carImages[3]
         case 4:
-            carImageView.image = UIImage.getImage(named: .car1_dmg4)
+            carImageView.image = carImages[4]
         default:
             break
         }
@@ -90,7 +123,7 @@ class CarUI {
     private func setCarImageViewSettings(mainViewSize: CGSize) {
         carView.frame.origin = CGPoint(x: mainViewSize.width / 2 - carWidth / 2, y: mainViewSize.height - carHeight - 100)
         carView.frame.size = CGSize(width: carWidth, height: carHeight)
-        carImageView.image = UIImage.getImage(named: .car1_dmg0)
+        carImageView.image = carImages[0]
         carImageView.frame = carView.bounds
 
         carView.addSubview(carImageView)

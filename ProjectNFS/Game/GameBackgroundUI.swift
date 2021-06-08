@@ -65,8 +65,8 @@ class GameBackgroundUI {
                 return
             }
             if self.imageViewFirst.frame.origin.y >= backgroundViewBounds.height {
-                self.imageViewFirst.frame.origin.y = 0
-                self.imageViewSecond.frame.origin.y = -backgroundViewBounds.height
+                self.imageViewFirst.frame.origin.y = 5
+                self.imageViewSecond.frame.origin.y = -backgroundViewBounds.height + 5
             }
             self.startAnimation()
         }

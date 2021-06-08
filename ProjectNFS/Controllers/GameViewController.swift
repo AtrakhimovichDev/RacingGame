@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var thirdHPView: UIView!
     @IBOutlet weak var firstArmorView: UIView!
     @IBOutlet weak var secondArmorView: UIView!
+    private let panGesture = UIPanGestureRecognizer()
     
     private var createObstructionTimer: Timer?
     private var countScoreTimer: Timer?
@@ -42,6 +43,8 @@ class GameViewController: UIViewController {
     private var hpArray: [UIImageView] = []
     private var armorArray: [UIImageView] = []
     
+    private var userDefaults = UserDefaults.standard
+    private var location: GameLocation?
     private var needToResetAfterCrush = true
     private var currentArmor = 2
     private var currentHp = 3
@@ -56,6 +59,8 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let gameLocationString = userDefaults.value(forKey: .gameLocation) as? String ?? "City"
+        location = GameLocation(rawValue: gameLocationString)
         setGameSettings()
     }
     
@@ -133,6 +138,7 @@ class GameViewController: UIViewController {
     
     @objc func changeCarPosition(selector: UIPanGestureRecognizer) {
         if game.getGameStatus() != .play {
+            selector.state = .ended
             return
         }
         switch selector.state {
@@ -180,7 +186,6 @@ class GameViewController: UIViewController {
     }
     
     private func setStartViewsSettings() {
-        let panGesture = UIPanGestureRecognizer()
         panGesture.addTarget(self, action: #selector(changeCarPosition))
         mainView.addGestureRecognizer(panGesture)
         
@@ -189,15 +194,25 @@ class GameViewController: UIViewController {
     }
     
     private func createGameBackground() {
-        let roadBackground = game.createBackground(backgroundType: .road, viewBounds: roadView.bounds)
+        var backgroundTypeMain: GameBackgroundType?
+        var backgroundType: GameBackgroundType?
+        switch location {
+        case .city:
+            backgroundTypeMain = .road
+            backgroundType = .grass
+        default:
+            backgroundTypeMain = .offroad
+            backgroundType = .mud
+        }
+        let roadBackground = game.createBackground(backgroundType: backgroundTypeMain!, viewBounds: roadView.bounds)
         roadView.addSubview(roadBackground.imageViewFirst)
         roadView.addSubview(roadBackground.imageViewSecond)
         
-        let leftGrassBackground = game.createBackground(backgroundType: .grass, viewBounds: leftGrassView.bounds)
+        let leftGrassBackground = game.createBackground(backgroundType: backgroundType!, viewBounds: leftGrassView.bounds)
         leftGrassView.addSubview(leftGrassBackground.imageViewFirst)
         leftGrassView.addSubview(leftGrassBackground.imageViewSecond)
         
-        let rightGrassBackground = game.createBackground(backgroundType: .grass, viewBounds: rightGrassView.bounds)
+        let rightGrassBackground = game.createBackground(backgroundType: backgroundType!, viewBounds: rightGrassView.bounds)
         rightGrassView.addSubview(rightGrassBackground.imageViewFirst)
         rightGrassView.addSubview(rightGrassBackground.imageViewSecond)
     }
@@ -369,6 +384,7 @@ class GameViewController: UIViewController {
                 }
             } else if self.game.getGameStatus() == .gameOver {
                 timer.invalidate()
+                //self.panGesture.isEnabled = false
                 self.game.stopBackgroundAnimation()
                 self.openGameOverScreen()
             }

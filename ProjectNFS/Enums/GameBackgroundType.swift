@@ -10,13 +10,19 @@ import UIKit
 enum GameBackgroundType {
     case road
     case grass
+    case offroad
+    case mud
     
     func getImage() -> UIImage {
         switch self {
         case .road:
-            return UIImage(named: "road_icon") ?? UIImage()
+            return UIImage.getImage(named: .road)!
         case .grass:
-            return UIImage(named: "grass_icon") ?? UIImage()
+            return UIImage.getImage(named: .grass)!
+        case .offroad:
+            return UIImage.getImage(named: .offroad)!
+        case .mud:
+            return UIImage.getImage(named: .mud)!
         }
     }
 }

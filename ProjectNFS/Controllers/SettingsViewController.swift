@@ -229,9 +229,9 @@ class SettingsViewController: UIViewController {
     }
     
     private func fillCarsArray() {
-        carsArray.append((Car.viper, UIImage.getImage(named: .car1_dmg0)))
-        carsArray.append((Car.camaro, UIImage.getImage(named: .car3)))
-        carsArray.append((Car.police, UIImage.getImage(named: .car2)))
+        carsArray.append((Car.viper, UIImage.getImage(named: .viper_dmg0)))
+        carsArray.append((Car.camaro, UIImage.getImage(named: .camaro_dmg0)))
+        carsArray.append((Car.police, UIImage.getImage(named: .police_dmg0)))
     }
     
     private func readUsedDefaults() {
