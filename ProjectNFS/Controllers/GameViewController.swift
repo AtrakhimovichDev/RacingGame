@@ -60,11 +60,11 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         readUserSettings()
-        setGameSettings()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setGameSettings()
         setNavigationControllerSettings(animated: animated)
         gameUI.startAnimation(mainView: mainView) { _ in
             self.game.setGameStatus(newStatus: .play)
@@ -103,6 +103,12 @@ class GameViewController: UIViewController {
         startGameTimers()
     }
     
+    private func stopGame() {
+        game.stopBackgroundAnimation()
+        saveScore()
+        openGameOverScreen()
+    }
+    
     private func animateMenuView(moveTo: CGFloat, completion: @escaping ((Bool) -> ())) {
         mainView.bringSubviewToFront(menuView)
         UIView.animate(withDuration: 1, delay: 0, options: [], animations: {
@@ -134,6 +140,9 @@ class GameViewController: UIViewController {
     @objc func changeCarPosition(selector: UIPanGestureRecognizer) {
         if game.getGameStatus() != .play {
             selector.state = .ended
+            gameUI.hidePanGestureControlView()
+            game.car.setCarMoovingStatus(carIsMooving: false)
+            game.car.rotateCar()
             return
         }
         switch selector.state {
@@ -146,7 +155,7 @@ class GameViewController: UIViewController {
             gameUI.moveInsideControlCircle(translation: selector.translation(in: mainView))
         case .ended:
             gameUI.hidePanGestureControlView()
-            game.car.changeCarMoovingStatus()
+            game.car.setCarMoovingStatus(carIsMooving: false)
             game.car.rotateCar()
         default:
             break
@@ -224,7 +233,7 @@ class GameViewController: UIViewController {
     }
     
     private func createGameCar() {
-        let car = game.createCar(mainViewSize: mainView.bounds.size)
+        let car = game.createCar(mainViewSize: mainView.bounds.size, roadViewFrame: roadView.frame)
         mainView.addSubview(car.carView)
     }
     
@@ -333,7 +342,7 @@ class GameViewController: UIViewController {
     
     
     
-    /* Таймеры:
+    /* MARK: - Таймеры:
         - startGameTimers & stopGameTimers - функции запуска и остановки всех таймеров
         - startObstructionsCreateTimer - таймер генерирующий новые препятвия и удаляющий
             те, которые уже вышли за пределы экрана
@@ -358,7 +367,7 @@ class GameViewController: UIViewController {
         createObstructionTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
             switch self.game.getGameStatus() {
             case .play:
-                self.createObstruction()
+                self.createObstructions()
                 self.game.deleteObstractions(deleteAll: false)
                 self.mainView.bringSubviewToFront(self.scoreView)
                 self.mainView.bringSubviewToFront(self.hpView)
@@ -385,14 +394,13 @@ class GameViewController: UIViewController {
                         Animations.requireUserAtencion(on: self.mainView)
                         self.game.car.carDmgLvl += 1
                         self.game.car.changeCarImage()
+                        self.game.car.crashAnimate()
                         self.needToResetAfterCrush = false
                     }
                 }
             } else if self.game.getGameStatus() == .gameOver {
                 timer.invalidate()
-                //self.panGesture.isEnabled = false
-                self.game.stopBackgroundAnimation()
-                self.openGameOverScreen()
+                self.stopGame()
             }
         }
     }
@@ -421,10 +429,12 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func createObstruction() {
-        let obstruction = game.createObstruction(mainViewHeight: mainView.frame.height, roadViewFrame: roadView.frame)
-        mainView.addSubview(obstruction.obstructionImageView)
-        obstruction.startAnimation()
+    private func createObstructions() {
+        let obstructionsArray = game.createObstructions(mainViewFrame: mainView.frame, roadViewFrame: roadView.frame, roadsideViewFrame: leftGrassView.frame)
+        for obstruction in obstructionsArray {
+            mainView.addSubview(obstruction.obstructionImageView)
+            obstruction.startAnimation()
+        }
     }
     
     private func openGameOverScreen() {
@@ -490,4 +500,28 @@ class GameViewController: UIViewController {
         parentView.addSubview(imageView)
         return imageView
     }
+    
+    private func saveScore() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        
+        let userScore = UserScore(userName: userSettings.name, date: dateFormatter.string(from: Date()), score: score)
+        var userScoreArray = getUserScores()
+        userScoreArray.append(userScore)
+        let userScoreData = try? JSONEncoder().encode(userScoreArray)
+        userDefaults.setValue(userScoreData, forKey: UserDefaultsKeys.userScore.rawValue)
+    }
+    
+    private func getUserScores() -> [UserScore] {
+        var userScoreArray: [UserScore] = []
+        if let userScoreData = userDefaults.value(forKey: .userScore) as? Data {
+            do {
+                userScoreArray = try JSONDecoder().decode([UserScore].self, from: userScoreData)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return userScoreArray
+    }
+    
 }

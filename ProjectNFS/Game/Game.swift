@@ -18,6 +18,7 @@ class Game {
     private var armorAmount = 2
     private var userSettings: UserSettings
     private var userDefaults = UserDefaults.standard
+    private var obstractionTypesForCreste: [ObstructionType] = []
     
     init(userSettings: UserSettings) {
         self.userSettings = userSettings
@@ -92,17 +93,86 @@ class Game {
         return background
     }
     
-    func createObstruction(mainViewHeight: CGFloat, roadViewFrame: CGRect) -> ObstructionUI {
-        let obstraction = ObstructionUI()
-        obstraction.setObstractionSettings(mainViewHeight: mainViewHeight, roadViewFrame: roadViewFrame)
-        obstructionsArray.append(obstraction)
-        return obstraction
+    func createObstructions(mainViewFrame: CGRect, roadViewFrame: CGRect, roadsideViewFrame: CGRect) -> [ObstructionUI] {
+        obstractionTypesForCreste = []
+        genereteObstractionTypesArrayForCreating(probabilityOfCreating: 50, obstructionNumber: 0)
+        var currentObstractionsArray: [ObstructionUI] = []
+        for obstractionType in obstractionTypesForCreste {
+            let obstraction = ObstructionUI(obstractionType: obstractionType)
+            obstraction.setObstractionSettings(mainViewFrame: mainViewFrame, roadViewFrame: roadViewFrame, roadsideViewFrame: roadsideViewFrame)
+            obstructionsArray.append(obstraction)
+            currentObstractionsArray.append(obstraction)
+        }
+        return currentObstractionsArray
     }
     
-    func createCar(mainViewSize: CGSize) -> CarUI {
-        //let car = CarUI(car: userSettings.car)
-        car.setCarSettings(mainViewSize: mainViewSize)
-        //self.car = car
+    private func genereteObstractionTypesArrayForCreating(probabilityOfCreating: Int, obstructionNumber: Int) {
+        var probabilityOfCreatingChenged = probabilityOfCreating
+        let randomNumber = Int.random(in: 0...19)
+        switch probabilityOfCreating {
+        case 100:
+            addObstractionTypeToCreate(obstructionNumber: obstructionNumber)
+        case 80:
+            if randomNumber <= 15 {
+                addObstractionTypeToCreate(obstructionNumber: obstructionNumber)
+                probabilityOfCreatingChenged -= 15
+            } else {
+                probabilityOfCreatingChenged += 20
+            }
+        case 65:
+            if randomNumber <= 12 {
+                addObstractionTypeToCreate(obstructionNumber: obstructionNumber)
+                probabilityOfCreatingChenged -= 15
+            } else {
+                probabilityOfCreatingChenged += 15
+            }
+        case 50:
+            if randomNumber <= 9 {
+                addObstractionTypeToCreate(obstructionNumber: obstructionNumber)
+                probabilityOfCreatingChenged -= 15
+            } else {
+                probabilityOfCreatingChenged += 15
+            }
+        case 35:
+            if randomNumber <= 6 {
+                addObstractionTypeToCreate(obstructionNumber: obstructionNumber)
+                probabilityOfCreatingChenged -= 15
+            } else {
+                probabilityOfCreatingChenged += 15
+            }
+        case 20:
+            if randomNumber <= 3 {
+                addObstractionTypeToCreate(obstructionNumber: obstructionNumber)
+                probabilityOfCreatingChenged -= 15
+            } else {
+                probabilityOfCreatingChenged += 15
+            }
+        default:
+            break
+        }
+        if obstructionNumber < 4 {
+            genereteObstractionTypesArrayForCreating(probabilityOfCreating: probabilityOfCreatingChenged, obstructionNumber: obstructionNumber + 1)
+        }
+        
+    }
+    
+    private func addObstractionTypeToCreate(obstructionNumber: Int) {
+        switch obstructionNumber {
+        case 0:
+            obstractionTypesForCreste.append(.leftRoadSide)
+        case 1:
+            obstractionTypesForCreste.append(.oncomingCar)
+        case 2:
+            obstractionTypesForCreste.append(.car)
+        case 3:
+            obstractionTypesForCreste.append(.rightRoadSide)
+        default:
+            break
+        }
+    }
+    
+    func createCar(mainViewSize: CGSize, roadViewFrame: CGRect) -> CarUI {
+        car.setCarSettings(mainViewSize: mainViewSize, roadViewFrame: roadViewFrame)
         return car
     }
     

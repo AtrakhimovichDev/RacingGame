@@ -8,7 +8,8 @@
 import Foundation
 
 enum ObstructionType {
-    case barrel
     case car
-    case tree
+    case oncomingCar
+    case leftRoadSide
+    case rightRoadSide
 }

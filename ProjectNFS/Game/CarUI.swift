@@ -69,10 +69,26 @@ class CarUI {
         self.translationPosition = translationPosition
     }
     
-    func setCarSettings(mainViewSize: CGSize) {
+    func setCarSettings(mainViewSize: CGSize, roadViewFrame: CGRect) {
         fillCarImmagesArray()
-        setCarImageViewSettings(mainViewSize: mainViewSize)
+        setCarImageViewSettings(mainViewSize: mainViewSize, roadViewFrame: roadViewFrame)
         setAnimationRules(mainViewSize: mainViewSize)
+    }
+    
+    func crashAnimate(alpha: CGFloat = 0) {
+        UIView.animate(withDuration: 0.1) {
+            self.carImageView.alpha = alpha
+        } completion: { _ in
+            if self.afterCrash {
+                if alpha == 0 {
+                    self.crashAnimate(alpha: 1)
+                } else {
+                    self.crashAnimate(alpha: 0)
+                }
+            } else {
+                self.carImageView.alpha = 1
+            }
+        }
     }
     
     private func fillCarImmagesArray() {
@@ -98,8 +114,8 @@ class CarUI {
         }
     }
     
-    func changeCarMoovingStatus() {
-        carIsMooving = !carIsMooving
+    func setCarMoovingStatus(carIsMooving: Bool) {
+        self.carIsMooving = carIsMooving
     }
     
     func changeCarImage() {
@@ -119,7 +135,9 @@ class CarUI {
         }
     }
     
-    private func setCarImageViewSettings(mainViewSize: CGSize) {
+    private func setCarImageViewSettings(mainViewSize: CGSize, roadViewFrame: CGRect) {
+        carWidth = roadViewFrame.width / 2 * 0.4
+        carHeight =  carWidth * 2
         carView.frame.origin = CGPoint(x: mainViewSize.width / 2 - carWidth / 2, y: mainViewSize.height - carHeight - 100)
         carView.frame.size = CGSize(width: carWidth, height: carHeight)
         carImageView.image = carImages[0]

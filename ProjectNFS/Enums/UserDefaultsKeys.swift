@@ -9,4 +9,5 @@ import Foundation
 
 enum UserDefaultsKeys: String {
     case userSettings = "User_settings"
+    case userScore = "User_score"
 }

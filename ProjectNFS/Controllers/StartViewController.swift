@@ -94,26 +94,42 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 1, delay: 0.4, options: []) {
             self.startButton.frame.origin.y = self.view.frame.height + 50
         } completion: { _ in
-            self.openGameScreen()
+            self.openNewScreen(identifier: "gameViewController")
         }
     }
     
-    private func openGameScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let gameVC = storyboard.instantiateViewController(identifier: "gameViewController")
-        navigationController?.pushViewController(gameVC, animated: true)
-    }
-    
     @objc func scoreButtonPressed() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let scoreVC = storyboard.instantiateViewController(identifier: "scoreViewController")
-        navigationController?.pushViewController(scoreVC, animated: true)
+        UIView.animate(withDuration: 1, delay: 0, options: []) {
+            self.settingsButton.frame.origin.y = self.view.frame.height + 50
+        }
+        UIView.animate(withDuration: 1, delay: 0.2, options: []) {
+            self.startButton.frame.origin.y = self.view.frame.height + 50
+        }
+        UIView.animate(withDuration: 1, delay: 0.5, options: []) {
+            self.scoreButton.frame.origin.y = self.view.frame.height + 50
+        } completion: { _ in
+            self.openNewScreen(identifier: "scoreViewController")
+        }
     }
     
     @objc func settingsButtonPressed() {
+        UIView.animate(withDuration: 1, delay: 0, options: []) {
+            self.scoreButton.frame.origin.y = self.view.frame.height + 50
+        }
+        UIView.animate(withDuration: 1, delay: 0.2, options: []) {
+            self.startButton.frame.origin.y = self.view.frame.height + 50
+        }
+        UIView.animate(withDuration: 1, delay: 0.6, options: []) {
+            self.settingsButton.frame.origin.y = self.view.frame.height + 50
+        } completion: { _ in
+            self.openNewScreen(identifier: "settingsViewController")
+        }
+    }
+    
+    private func openNewScreen(identifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let settingsVC = storyboard.instantiateViewController(identifier: "settingsViewController")
-        navigationController?.pushViewController(settingsVC, animated: true)
+        let newVC = storyboard.instantiateViewController(identifier: identifier)
+        navigationController?.pushViewController(newVC, animated: true)
     }
     
     
